@@ -4,11 +4,6 @@
     box-sizing: border-box;
 }
 
-body{
-    background: rgb(255, 255, 255);
-    margin: 30px;
-}
-
 .form-container{
     background: white;
     padding: 30px;
@@ -17,12 +12,9 @@ body{
 .row{
     border-radius: 30px;
 }
-.col-md-4{
-    border-radius: 30px;
-    background-color: white;
-}
 
-img{
+
+.logo{
     border-radius: 30px;
     width: 100%;
 
