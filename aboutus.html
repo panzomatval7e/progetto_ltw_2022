@@ -13,67 +13,79 @@
 </head>
 <body>
 
-    <!-- HEADER -->
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 fixed-top shadow">
+    <div class="container">
+    
+      <a href="index.html" class="navbar-brand d-flex mr-auto">Photo Community</a>
 
-    <header class="p-3 mb-3 border-bottom">
-        <div class="container">
-          <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
-              <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
-            </a>
-    
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-              <li><a href="#" class="nav-link px-2 link-secondary">Categories</a></li>
-              <li><a href="#" class="nav-link px-2 link-dark">About us</a></li>
-            </ul>
-    
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-              <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-            </form>
-    
-            <!-- Questa parte deve essere caricata solo quando l'utente è loggato -->
-            <div class="dropdown text-end">
-              <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
-              </a>
-              <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                <li><a class="dropdown-item" href="./profile/profile.html">Profile</a></li>
-                <li><a class="dropdown-item" href="#">Upload photo</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="./authentication/login.html">Sign In</a></li>
-              </ul>
+      <button
+        class="navbar-toggler ms-auto me-2"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navmenu"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="navbar-collapse collapse" id="navmenu">
+        <ul class="nav navbar-nav mr-auto">
+          <li class="nav-item">
+            <a href="#" class="nav-link">Categories</a>
+          </li>
+          <li class="nav-item">
+            <a href="aboutus.html" class="nav-link">About us</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ms-auto me-2">
+          <li>
+              <form>
+                  <input type="search" class="form-control" placeholder="Search" aria-label="Search">
+              </form>
+          </li>
+      </ul>
+      </div>
+      <div class="dropdown text-end">
+          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+          </a>
+          <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+            <li><a class="dropdown-item" href="./profile/profile.html">Profile</a></li>
+            <li><a class="dropdown-item" href="#">Upload photo</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="./authentication/login.html">Sign In</a></li>
+          </ul>
+        </div>
+    </div>
+  </nav>
+
+  <div class="container pt-5">
+      
+    <div class="card mb-3 mt-5">
+        <div class="row">
+          <div class="col-md-6">
+            <img src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814785/photostream-photos/DSC05586_oj8jfo.jpg" class="img-fluid rounded-start" alt="...">
+          </div>
+          <div class="col-md-6">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
             </div>
           </div>
         </div>
-      </header>
-
-      <div class="container">
-          
-        <div class="card mb-3">
-            <div class="row">
-              <div class="col-md-6">
-                <img src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814785/photostream-photos/DSC05586_oj8jfo.jpg" class="img-fluid rounded-start" alt="...">
-              </div>
-              <div class="col-md-6">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card mb-3">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <img src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814785/photostream-photos/DSC05586_oj8jfo.jpg" class="img-fluid rounded-start" alt="...">
-              </div>
-            </div>
-          </div>
-          
       </div>
+      <div class="card mb-3">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <img src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814785/photostream-photos/DSC05586_oj8jfo.jpg" class="img-fluid rounded-start" alt="...">
+          </div>
+        </div>
+      </div>
+      
+  </div>

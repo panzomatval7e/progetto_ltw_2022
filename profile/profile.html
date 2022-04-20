@@ -2,73 +2,349 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../css/headers.css"/>
     <link rel="stylesheet" type="text/css" href="../css/profile.css"/>
     <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/photo.css">
     <script src="../bootstrap/js/bootstrap.bundle.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
 </head>
 <body>
-
-    <!-- HEADER -->
-
-    <header class="p-3 mb-3 border-bottom">
-        <div class="container">
-          <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
-              <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
-            </a>
     
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-              <li><a href="#" class="nav-link px-2 link-secondary">Categories</a></li>
-              <li><a href="#" class="nav-link px-2 link-dark">About us</a></li>
-            </ul>
-    
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-              <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-            </form>
-    
-            <!-- Questa parte deve essere caricata solo quando l'utente è loggato -->
-            <div class="dropdown text-end">
-              <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
-              </a>
-              <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                <li><a class="dropdown-item" href="profile.html">Profile</a></li>
-                <li><a class="dropdown-item" href="#">Upload photo</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Log out</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </header>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 fixed-top shadow">
+    <div class="container">
+     
+      <a href="../index.html" class="navbar-brand d-flex mr-auto">Photo Community</a>
 
-      <!-- BODY -->
+      <button
+        class="navbar-toggler ms-auto me-2"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navmenu"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-      <div class="container">
-          <div class="row">
-              <!-- IMMAGINE DEL PROFILO E USERNAME -->
-              <div class="col-sm-12 col-md-6 text-center">
-                <figure class="figure">
-                    <img src="https://github.com/mdo.png" alt="Immagine profilo" class="profile mx-auto rounded-circle">
-                    <figcaption class="text-center h6">panzomat</figcaption>
-                </figure>
-              </div>
-              <!-- INFORMAZIONI UTENTE -->
-              <!-- DA RENDERE DINAMICO PRENDENDO I DATI DA UN DB -->
-              <div class="col align-self-center">
-                  <div class="row text-center"> <p>Matteo Panzironi</p> </div>
-                  <div class="row text-center"> <p>matteo.panzironi98@gmail.com</p> </div>
-                  <div class="row gap-2 mx-auto col-6"> 
-                    <!-- BOTTONE CAMBIA PASSWORD -->    
-                    <a href="paswdchange.html" class="btn btn-outline-danger">Cambia password</a>
-                  </div>
-              </div>
-          </div>
+      <div class="navbar-collapse collapse" id="navmenu">
+        <ul class="nav navbar-nav mr-auto">
+          <li class="nav-item">
+            <a href="#" class="nav-link">Categories</a>
+          </li>
+          <li class="nav-item">
+            <a href="../aboutus.html" class="nav-link">About us</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ms-auto me-2">
+          <li>
+              <form>
+                  <input type="search" class="form-control" placeholder="Search" aria-label="Search">
+              </form>
+          </li>
+      </ul>
       </div>
+      <div class="dropdown text-end">
+          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+          </a>
+          <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><a class="dropdown-item" href="#">Upload photo</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="./authentication/login.html">Sign In</a></li>
+          </ul>
+        </div>
+    </div>
+  </nav>
+
+  <!-- PROFILE SECTION -->
+  <section class="pt-5">
+    <div class="container pt-5">
+      <div class="row align-items-center justify-content-between">
+        <div class="col-md text-center">
+          <img src="https://github.com/mdo.png" class="img-fluid pb-3" alt="">
+        </div>
+        <div class="col-md">
+          <form class="form-container g-5" method="POST">
+            <!-- USERNAME -->
+            <div class="input-group mb-3 align-items-center">
+              <div class="col-auto me-auto">
+                <label>panzomat</label>
+              </div>
+              <div class="col-auto">
+                <button type="button" class="btn_apply mb-3" data-bs-toggle="modal" data-bs-target="#usernamechange">Change it</button>
+              </div>
+            </div>
+            <!-- NAME -->
+            <div class="input-group mb-3 align-items-center">
+              <div class="col-auto me-auto">
+                <label>Matteo</label>
+              </div>
+              <div class="col-auto">
+                <button type="button" class="btn_apply mb-3" data-bs-toggle="modal" data-bs-target="#namechange">Change it</button>
+              </div>
+            </div>
+            <!-- SURNAME -->
+            <div class="input-group mb-3 align-items-center">
+              <div class="col-auto me-auto">
+                <label>Panzironi</label>
+              </div>
+              <div class="form-row">
+                <button type="button" class="btn_apply mb-3" data-bs-toggle="modal" data-bs-target="#surnamechange">Change it</button>
+              </div>
+            </div>
+            <div class="input-group mb-3 align-items-center">
+              <div class="col-auto me-auto">
+                <label>*****************</label>
+              </div>
+              <div class="form-row">
+                <button type="button" class="btn_psw mb-3" data-bs-toggle="modal" data-bs-target="#pswchange">Change password</button>
+              </div>
+            </div>
+          </form>
+          <!--
+            <div class="form-row">
+              <button class="btn_psw mb-3" data-bs-toggle="modal" data-bs-target="#pswchange">Change password</button> 
+            </div>
+          -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- UPLOADED FOTO SECTION -->
+  <section class="pt-3">
+    <div class="container">
+      <ul class="photo_ul">
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814785/photostream-photos/DSC05466_kwlv0n.jpg" alt="A Toyota Previa covered in graffiti" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814785/photostream-photos/DSC05621_zgtcco.jpg" alt="Interesting living room light through a window" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814785/photostream-photos/DSC05513_gfbiwi.jpg" alt="Sara on a red bike" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814785/photostream-photos/DSC05588_nb0dma.jpg" alt="XOXO venue in between talks" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814785/photostream-photos/DSC05459_ziuomy.jpg" alt="Trees lit by green light during dusk" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814785/photostream-photos/DSC05586_oj8jfo.jpg" alt="Portrait of Justin Pervorse" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814785/photostream-photos/DSC05465_dtkwef.jpg" alt="Empty bike racks outside a hotel" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814785/photostream-photos/DSC05626_ytsf3j.jpg" alt="Heavy rain on an intersection" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814785/photostream-photos/DSC05449_l9kukz.jpg" alt="Payam Rajabi eating peanut chicken" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814785/photostream-photos/DSC05544_aczrb9.jpg" alt="Portland skyline sunset" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814785/photostream-photos/DSC05447_mvffor.jpg" alt="Interior at Nong's" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814784/photostream-photos/DSC05501_yirmq8.jpg" alt="A kimchi hotdog on a plate" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814784/photostream-photos/DSC05624_f5b2ud.jpg" alt="Restaurant window with graffiti saying 'water'" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814784/photostream-photos/DSC05623_dcpfva.jpg" alt="Portrait of Jeremy Tanner" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814784/photostream-photos/DSC05515_d2gzut.jpg" alt="Jordan, Sarah and Sara on red bikes, waiting" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814784/photostream-photos/DSC05581_ceocwv.jpg" alt="Barista wearing a hoodie saying 'Coffee Should Be Dope.'" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814784/photostream-photos/DSC05517_ni2k0p.jpg" alt="Payam crossing the street on a bike" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814783/photostream-photos/DSC05620_qfwycq.jpg" alt="Lit trees reflected in a puddle" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814783/photostream-photos/DSC05462_b33uvp.jpg" alt="Moody chair in my hotel room" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814783/photostream-photos/DSC05489_mqzktl.jpg" alt="Tom and Jenn wearing sunglasses" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814783/photostream-photos/DSC05476_dlkjza.jpg" alt="Jordan and Sarah in front of a restaurant window" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814783/photostream-photos/DSC05497_abbd3c.jpg" alt="Sarah reading the Double Dragon drink menu" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814782/photostream-photos/DSC05487_fcdv7t.jpg" alt="Beer brewing equipment" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814782/photostream-photos/DSC05493_q6njbk.jpg" alt="2 cocktails in the making" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814782/photostream-photos/DSC05446_xj60ff.jpg" alt="Beverage fridge at Nong's" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814782/photostream-photos/DSC05559_hu49zx.jpg" alt="Wood structure reflections" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814782/photostream-photos/DSC05482_dtrj02.jpg" alt="Colorful garden equipment in a shop window" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814782/photostream-photos/DSC05565_dx5rp6.jpg" alt="Sarah in front of a wooden wall" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814782/photostream-photos/DSC05613_o9af2z.jpg" alt="A neon banana" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814782/photostream-photos/DSC05469_fdxdzx.jpg" alt="Matt Sacks smiling while we're waiting for food" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814782/photostream-photos/DSC05558_yq2tnz.jpg" alt="A fixed-gear bike under some bright lights" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814781/photostream-photos/DSC05483_dyiuya.jpg" alt="Panic's PlayDate being held by a tester" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814781/photostream-photos/DSC05468_xzbtcd.jpg" alt="Window reflection of me and Payam" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814781/photostream-photos/DSC05457_nloycw.jpg" alt="Upside down shopping carts" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814781/photostream-photos/DSC05522_mekpec.jpg" alt="Payam riding a bike with no hands" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814781/photostream-photos/DSC05611_lbwtmk.jpg" alt="A kid's pillow left on the bench of a bus stop" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814781/photostream-photos/DSC05572_xfvij7.jpg" alt="My reflection in the mirror" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814781/photostream-photos/DSC05481_gnljae.jpg" alt="Jordan holding an iced coffee against his head to cool down" loading="lazy">
+        </li>
+        <li class="photo_li">
+          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814781/photostream-photos/DSC05480_zkw8sm.jpg" alt="Jordan and Sarah looking at the menu in a coffee shop" loading="lazy">
+        </li>
+        <!--  Adding an empty <li class="photo_li"> here so the final photo doesn't stretch like crazy. Try removing it and see what happens!  -->
+        <li class="photo_li"></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- MODAL -->
+
+  <!-- MODAL CHANGE USERNAME BUTTON -->
+  <div class="modal fade" id="usernamechange" tabindex="-1" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="">Username change</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="floatingNewUsername" placeholder="New username">
+              <label for="floatingNewUsername" class="col-form-label">New username</label>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Change username</button>
+        </div>
+      </div>
+    </div>
+  </div>  
+
+  <!-- MODAL CHANGE NAME BUTTON -->
+  <div class="modal fade" id="namechange" tabindex="-1" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="">Name change</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="floatingNewName" placeholder="New name">
+              <label for="floatingNewName" class="col-form-label">New name</label>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Change name</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL CHANGE SURNAME BUTTON -->
+  <div class="modal fade" id="surnamechange" tabindex="-1" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="">Surname change</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="floatingNewSurname" placeholder="New surname">
+              <label for="floatingNewSurname" class="col-form-label">New surname</label>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Change surname</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL CHANGE PASSWORD BUTTON -->
+  <div class="modal fade" id="pswchange" tabindex="-1" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="">Password change</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-floating mb-3">
+              <input type="password" class="form-control" id="floatingOldPsw" placeholder="Old password">
+              <label for="floatingOldPsw" class="col-form-label">Old password</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="password" class="form-control" id="floatingNewPsw1" placeholder="New password">
+              <label for="floatingNewPsw1" class="col-form-label">New password</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="password" class="form-control" id="floatingNewPsw2" placeholder="Repeat new password">
+              <label for="floatingNewPsw2" class="col-form-label">Repeat new password</label>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Change password</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>

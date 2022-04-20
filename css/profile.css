@@ -1,5 +1,38 @@
-img.profile {
-    height: 60%;
-    width: 60%;
-    padding: 5%;
+.btn_apply{
+    border: none;
+    outline: none;
+    height: 50px;
+    width: 100%;
+    background-color: black;
+    color: white;
+    border-radius: 0.25rem;
+    font-weight: bold;
+}
+
+.btn_apply:hover{
+    background: white;
+    border: 1px solid;
+    color: black ;
+}
+
+.btn_psw{
+    border: none;
+    outline: none;
+    height: 50px;
+    width: 100%;
+    background-color: tomato;
+    color: white;
+    border-radius: 0.25rem;
+    font-weight: bold;
+}
+
+.btn_psw:hover{
+    background: white;
+    border: 1px solid;
+    color: tomato;
+}
+
+.logo{
+    border-radius: 0.25rem;
+    width: 100%;
 }
