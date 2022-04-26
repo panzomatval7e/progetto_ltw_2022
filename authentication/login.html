@@ -11,68 +11,82 @@
 
     <title>Login</title>
   </head>
-  <body class="text-center">
-    <header class="p-3 mb-3 border-bottom">
-        <div class="container">
-          <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
-              <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
-            </a>
+  <body>
     
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-              <li><a href="#" class="nav-link px-2 link-secondary">Categories</a></li>
-              <li><a href="../aboutus.html" class="nav-link px-2 link-dark">About us</a></li>
-            </ul>
-    
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-              <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-            </form>
-    
-            <!-- Questa parte deve essere caricata solo quando l'utente è loggato -->
-            <div class="dropdown text-end">
-              <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
-              </a>
-              <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                <li><a class="dropdown-item" href="../profile/profile.html">Profile</a></li>
-                <li><a class="dropdown-item" href="#">Upload photo</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="login.html">Sign In</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </header>
-    <section class="container-fluid">
-        <section class="row justify-content-center">
-            <div class="col-xl-4 col-lg-6 col-md-9 col-sm-12">
-                <div class="col px-5 pt-5">
-                    <img src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814785/photostream-photos/DSC05586_oj8jfo.jpg" class="img-fluid logo" alt="">
-                </div>
-                <h1 class="font-weight-bold py-3">Web app title</h1>
-                <h4>Sign in into your account</h4>
-                <form class="form-container" action="/login" method="POST">
-                    <div class="form-row col-auto">
-                        <input type="email" id="email" name="email" class="form-control my-3" placeholder="Email">
-                    </div>
-                    <div class="form-row col-auto">
-                        <input type="password" id="password" name="password" class="form-control my-3" id="myPassword" minlength="8" placeholder="Password">
-                    </div>
-                    <div class="form-row col-auto">
-                        <div class="form-check-inline">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> Remember me
-                        </div>
-                    </div>
-                    <div class="form-row col-auto">    
-                        <button type="submit" class="btn1 mt-3 mb-5">Log In</button>
-                    </div>
-                    <a href="#">Forgot password?</a>
-                    <p>Don't have an account? <a id="mylink" href="./registration.html">Register here</a></p>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 fixed-top shadow">
+      <div class="container">
+       
+        <a href="/" class="navbar-brand d-flex mr-auto">Photo Community</a>
+
+        <button
+          class="navbar-toggler ms-auto me-2"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navmenu"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navmenu">
+          <ul class="nav navbar-nav mr-auto">
+            <li class="nav-item">
+              <a href="#" class="nav-link">Categories</a>
+            </li>
+            <li class="nav-item">
+              <a href="/aboutus" class="nav-link">About us</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav ms-auto me-2">
+            <li>
+                <form>
+                    <input type="search" class="form-control" placeholder="Search" aria-label="Search">
                 </form>
-                        
-                </div>
-            </section>
-    </section>
+            </li>
+        </ul>
+        </div>
+        <div class="dropdown text-end">
+            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+            </a>
+            <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+              <li><a class="dropdown-item" href="/profile">Profile</a></li>
+              <li><a class="dropdown-item" href="#">Upload photo</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/login">Sign In</a></li>
+            </ul>
+          </div>
+      </div>
+    </nav>
+
+    <!-- LOGIN FORM -->
+    <div class="sidenav mb-2">
+      <div class="login-main-text">
+         <h2>Photo community<br>Login Page</h2>
+         <p>Login or register from here to access.</p>
+      </div>
+    </div>
+    <div class="main">
+      <div class="col-md-6 col-sm-12">
+         <div class="login-form">
+            <form action="/auth" method="post">
+              <!-- MAIL -->
+              <div class="form-group pb-2">
+                <label>Username</label>
+                <input type="text" class="form-control" placeholder="Username" id="username" name="username">
+              </div>
+              <!-- PASSWORD -->
+              <div class="form-group pb-3">
+                <label>Password</label>
+                <input type="password" class="form-control" placeholder="Password" id="password" name="password">
+              </div>
+              <!-- BUTTONS -->
+              <button type="submit" class="btn btn-black">Login</button>
+              <a href="/signup"><button type="button" class="btn btn-grey">Register</button></a>
+            </form>
+         </div>
+      </div>
+    </div>
 
 
 
