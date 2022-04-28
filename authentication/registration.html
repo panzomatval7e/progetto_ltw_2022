@@ -72,21 +72,21 @@
     <div class="main">
       <div class="col-md-6 col-sm-12">
          <div class="login-form">
-            <form onsubmit="inserisci_utente();">
+            <form action="/signup" method="post">
               <!-- USERNAME -->
               <div class="form-group pb-2">
                 <label>Username</label>
-                <input type="text" class="form-control" placeholder="Username" id="registration_username">
+                <input type="text" class="form-control" placeholder="Username" id="username" name="username">
               </div>
               <!-- MAIL -->
               <div class="form-group pb-2">
                 <label>E-mail</label>
-                <input type="text" class="form-control" placeholder="E-mail" id="registration_mail">
+                <input type="text" class="form-control" placeholder="E-mail" id="mail" name="mail">
               </div>
               <!-- PASSWORD -->
               <div class="form-group pb-3">
                 <label>Password</label>
-                <input type="password" class="form-control" placeholder="Password" id="registration_password">
+                <input type="password" class="form-control" placeholder="Password" id="password" name="password">
               </div>
               <!-- BUTTONS -->
               <button type="submit" class="btn btn-black">Register</button>

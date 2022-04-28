@@ -14,18 +14,25 @@ const connection = mysql.createConnection({
 // Initialize express
 const app = express();
 
+app.set("view engine", "ejs");
+
+const oneDay = 1000 * 60 * 60 * 24;
+
 // Associate modules used with express
 app.use(session({
+	name: 'nome cookie sessione',
 	secret: 'secret',
 	resave: true,
-	saveUninitialized: true
+	saveUninitialized: true,
+	unset: 'keep'
 }));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
 
 // Autenticazione (/auth)
-app.post('/auth', function(request, response) {
+app.post('/auth', (request, response) => {
 	// Capture the input fields
 	let username = request.body.username;
 	let password = request.body.password;
@@ -39,9 +46,9 @@ app.post('/auth', function(request, response) {
 			if (results.length > 0) {
 				// Authenticate the user
 				request.session.loggedin = true;
-				request.session.username = username;
+				request.session.username = request.body.username;
 				// Redirect to home page
-				response.redirect('/home');
+				response.redirect('/index');
 			} else {
 				response.send('Incorrect Username and/or Password!');
 			}			
@@ -52,6 +59,36 @@ app.post('/auth', function(request, response) {
 		response.end();
 	}
 });
+
+app.post('/signup', function(request, response){
+
+	const {username, mail, password} = request.body;
+
+	// se i campi sono tutti settati
+	if (username && mail && password){
+		// TODO: aggiungere controllo su username e mail per vedere se sono già in uso
+		connection.query('INSERT INTO utenti SET ?', {username: username, mail: mail, password: password}, (error, results) => {
+			if(error) {
+				console.log(error);
+			} else {
+				response.redirect('/login');
+			}
+			response.end();
+		});
+	}
+	/*
+	// Se username è vuoto
+	if (!username) {
+		response.send('Please enter Username');
+	} 
+	if (!mail) {
+		response.send('Please enter mail');
+	}
+	if (!password){
+		response.send('Please enter password');
+	}*/
+
+})
 
 // Se il login è andato a buon fine
 app.get('/home', function(request, response) {
@@ -68,10 +105,16 @@ app.get('/home', function(request, response) {
 
 // GET pagine applicazione web
 
-// index.html
-app.get('/', function(request, response) {
-	response.sendFile(path.join(__dirname + '/index.html'));
+// index_logged.html
+app.get('/index', function(request, response) {
+	response.sendFile(path.join(__dirname + '/index_logged.html'));
 });
+
+// index_unregistered.html
+app.get('/', function(request, response) {
+	response.sendFile(path.join(__dirname + '/index_unregistered.html'));
+});
+
 
 // login.html
 app.get('/login', function(request, response) {
@@ -85,7 +128,28 @@ app.get('/signup', function(request, response) {
 
 // profile.html
 app.get('/profile', function(request, response) {
-	response.sendFile(path.join(__dirname + '/profile/profile.html'));
+	//const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
+	let result_username = request.session.username;
+	let result_nome = "ciao";
+	//console.log('user: ', user);
+	//let result_nome;
+	/*
+	const username = connection.query('SELECT username FROM utenti WHERE username = ?', [result_username], function(error, results, fields) {
+		if (error) throw error;
+		result_username = results[0];
+		//console.log('result_username', result_username);
+	});*/
+	
+	const nome = connection.query('SELECT nome FROM utenti WHERE username = ?', [result_username], function(error, results, fields) {
+		if (error) throw error;
+		result_nome = results[0];
+		console.log('result_nome: ', result_nome);
+	});
+
+	//await delay(10);
+	//console.log('risultato query username: ', result_username);
+	console.log('risultato query nome: ', result_nome);
+	response.render("profile", {username: result_username, nome: result_nome});
 });
 
 // aboutus.html
