@@ -128,28 +128,19 @@ app.get('/signup', function(request, response) {
 
 // profile.html
 app.get('/profile', function(request, response) {
-	//const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
-	let result_username = request.session.username;
-	let result_nome = "ciao";
-	//console.log('user: ', user);
-	//let result_nome;
-	/*
-	const username = connection.query('SELECT username FROM utenti WHERE username = ?', [result_username], function(error, results, fields) {
-		if (error) throw error;
-		result_username = results[0];
-		//console.log('result_username', result_username);
-	});*/
-	
-	const nome = connection.query('SELECT nome FROM utenti WHERE username = ?', [result_username], function(error, results, fields) {
-		if (error) throw error;
-		result_nome = results[0];
-		console.log('result_nome: ', result_nome);
-	});
 
-	//await delay(10);
-	//console.log('risultato query username: ', result_username);
-	console.log('risultato query nome: ', result_nome);
-	response.render("profile", {username: result_username, nome: result_nome});
+	connection.query('SELECT username, nome, cognome FROM utenti WHERE username = ?', [request.session.username], function(error, result, field) {
+		if (error) throw error;
+		const [record] = result
+		console.log(result)
+		//gestire se non c'è
+		const username = record.username
+		const nome = record.nome
+		const cognome = record.cognome
+		response.render("profile", {username: username, nome: nome, cognome: cognome});
+		
+	})
+	
 });
 
 // aboutus.html
