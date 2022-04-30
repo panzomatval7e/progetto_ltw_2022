@@ -48,7 +48,7 @@ app.post('/auth', (request, response) => {
 				request.session.loggedin = true;
 				request.session.username = request.body.username;
 				// Redirect to home page
-				response.redirect('/index');
+				response.redirect('/');
 			} else {
 				response.send('Incorrect Username and/or Password!');
 			}			
@@ -71,48 +71,24 @@ app.post('/signup', function(request, response){
 			if(error) {
 				console.log(error);
 			} else {
-				response.redirect('/login');
+				response.redirect('/');
 			}
 			response.end();
 		});
 	}
-	/*
-	// Se username è vuoto
-	if (!username) {
-		response.send('Please enter Username');
-	} 
-	if (!mail) {
-		response.send('Please enter mail');
-	}
-	if (!password){
-		response.send('Please enter password');
-	}*/
+});
 
-})
-
-// Se il login è andato a buon fine
-app.get('/home', function(request, response) {
-	// If the user is loggedin
-	if (request.session.loggedin) {
-		// Output username
-		response.send('Welcome back, ' + request.session.username + '!');
-	} else {
-		// Not logged in
-		response.send('Please login to view this page!');
-	}
-	response.end();
+app.get('/logout', function(request, response){
+	request.session.loggedin = false;
+	request.session.destroy();
+	response.redirect('/');
 });
 
 // GET pagine applicazione web
 
-// index_logged.html
-app.get('/index', function(request, response) {
-	response.sendFile(path.join(__dirname + '/index_logged.html'));
-});
-
-// index_unregistered.html
+// index.ejs
 app.get('/', function(request, response) {
-	response.sendFile(path.join(__dirname + '/index_unregistered.html'));
+	response.render("pages/index", {sessione: request.session});
 });
 
 
@@ -128,7 +104,6 @@ app.get('/signup', function(request, response) {
 
 // profile.html
 app.get('/profile', function(request, response) {
-
 	connection.query('SELECT username, nome, cognome FROM utenti WHERE username = ?', [request.session.username], function(error, result, field) {
 		if (error) throw error;
 		const [record] = result
@@ -137,15 +112,14 @@ app.get('/profile', function(request, response) {
 		const username = record.username
 		const nome = record.nome
 		const cognome = record.cognome
-		response.render("profile", {username: username, nome: nome, cognome: cognome});
-		
-	})
+		response.render("pages/profile", {username: username, nome: nome, cognome: cognome, sessione: request.session});
+	});
 	
 });
 
 // aboutus.html
 app.get('/aboutus', function(request, response) {
-	response.sendFile(path.join(__dirname + '/aboutus.html'));
+	response.render("pages/aboutus", {sessione: request.session});
 });
 
 // Porta su cui ascolta il server
