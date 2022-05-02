@@ -14,39 +14,7 @@
   <body>
     
     <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 fixed-top shadow">
-      <div class="container">
-       
-        <a href="/" class="navbar-brand d-flex mr-auto">Photo Community</a>
-
-        <button
-          class="navbar-toggler ms-auto me-2"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navmenu"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="navbar-collapse collapse" id="navmenu">
-          <ul class="nav navbar-nav mr-auto">
-            <li class="nav-item">
-              <a href="#" class="nav-link">Categories</a>
-            </li>
-            <li class="nav-item">
-              <a href="/aboutus" class="nav-link">About us</a>
-            </li>
-          </ul>
-          <ul class="navbar-nav ms-auto me-2">
-            <li>
-                <form>
-                    <input type="search" class="form-control" placeholder="Search" aria-label="Search">
-                </form>
-            </li>
-        </ul>
-        </div>
-      </div>
-    </nav>
+    <%- include('../partials/navbar', {sessione: sessione}); %>
 
     <!-- LOGIN FORM -->
     <div class="sidenav mb-2">
@@ -58,6 +26,12 @@
     <div class="main">
       <div class="col-md-6 col-sm-12">
          <div class="login-form">
+            <% if (message) { %>
+                <div style="text-align: center" class="alert alert-<%=message.type%>">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    <strong><%= message.intro %></strong> <%= message.message %>
+                </div>
+            <% } %>
             <form action="/auth" method="post">
               <!-- MAIL -->
               <div class="form-group pb-2">

@@ -31,6 +31,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
 
+app.use((req, res, next) =>{
+	res.locals.message = req.session.message;
+	delete req.session.message;
+	next();
+});
+
 // Autenticazione (/auth)
 app.post('/auth', (request, response) => {
 	// Capture the input fields
@@ -50,41 +56,95 @@ app.post('/auth', (request, response) => {
 				// Redirect to home page
 				response.redirect('/');
 			} else {
-				response.send('Incorrect Username and/or Password!');
+				request.session.message = {
+					type: 'danger',
+					intro: 'Wrong username or password! ',
+					message: 'Please check the informations.'
+				}
+				response.redirect('/login');
 			}			
 			response.end();
 		});
 	} else {
-		response.send('Please enter Username and Password!');
-		response.end();
+		request.session.message = {
+			type: 'danger',
+			intro: 'Empty fields! ',
+			message: 'Please insert username and password.'
+		}
+		response.redirect('/login');
 	}
 });
 
+// Registrazione (/signup)
 app.post('/signup', function(request, response){
 
 	const {username, mail, password} = request.body;
 
-	// se i campi sono tutti settati
+	// Se i campi sono tutti settati
 	if (username && mail && password){
-		// TODO: aggiungere controllo su username e mail per vedere se sono già in uso
-		connection.query('INSERT INTO utenti SET ?', {username: username, mail: mail, password: password}, (error, results) => {
-			if(error) {
-				console.log(error);
-			} else {
-				response.redirect('/');
+		// Se la mail inserita è in un formato valido
+		if (emailIsValid(mail)){
+			// Controllo se esiste un utente con lo stesso username
+			connection.query('Select * FROM utenti WHERE username = ?', [username], function(error, result, field) {
+				if (error) throw error;
+				// Se esiste chiedo di cambiare username
+				if (result.length > 0){
+					request.session.message = {
+						type: 'warning',
+						intro: 'Username already in use! ',
+						message: 'Please change your username.'
+					}
+					response.redirect('/signup');
+				// Se non esiste registro il nuovo utente
+				} else {
+					connection.query('INSERT INTO utenti SET ?', {username: username, mail: mail, password: password}, (error, results) => {
+						if(error) {
+							console.log(error);
+						} else {
+							request.session.message = {
+								type: 'success',
+								intro: 'Account created! ',
+								message: 'Insert your data to login.'
+							}
+							response.redirect('/login');
+						}
+						response.end();
+					});
+				}
+			});
+		// Se la mail non è valida
+		} else {
+			request.session.message = {
+				type: 'warning',
+				intro: 'Mail is not in a valid format! ',
+				message: 'Please control your mail.'
 			}
-			response.end();
-		});
+			response.redirect('/signup');
+		}
+	// Se i campi non sono tutti settati chiedo di compilarli tutti
+	} else {
+		request.session.message = {
+			type: 'danger',
+			intro: 'Empty fields! ',
+			message: 'Please insert username and password.'
+		}
+		response.redirect('/signup');
 	}
 });
+
+// Funzione che controlla la validità del formato della mail
+function emailIsValid(email) {
+	var regex_email_valida = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	return regex_email_valida.test(email);
+  }
+
+// GET pagine applicazione web
 
 app.get('/logout', function(request, response){
 	request.session.loggedin = false;
 	request.session.destroy();
 	response.redirect('/');
 });
-
-// GET pagine applicazione web
 
 // index.ejs
 app.get('/', function(request, response) {
@@ -94,12 +154,12 @@ app.get('/', function(request, response) {
 
 // login.html
 app.get('/login', function(request, response) {
-	response.sendFile(path.join(__dirname + '/authentication/login.html'));
+	response.render("pages/login", {sessione: request.session});
 });
 
 // registration.html
 app.get('/signup', function(request, response) {
-	response.sendFile(path.join(__dirname + '/authentication/registration.html'));
+	response.render("pages/signup", {sessione: request.session});
 });
 
 // profile.html
