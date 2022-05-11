@@ -15,6 +15,14 @@
     color: black ;
 }
 
+.profile_pic{
+  width: 50%;
+}
+
+.btn_profile{
+  width: 25%;
+}
+
 .btn_psw{
     border: none;
     outline: none;

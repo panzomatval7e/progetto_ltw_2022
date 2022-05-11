@@ -1,6 +1,7 @@
 const mysql = require('mysql');
 const express = require('express');
 const session = require('express-session');
+const fileUpload = require('express-fileupload');
 const path = require('path');
 
 // Create connection with database
@@ -30,6 +31,7 @@ app.use(session({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
+app.use(fileUpload());
 
 app.use((req, res, next) =>{
 	res.locals.message = req.session.message;
@@ -92,7 +94,7 @@ app.post('/signup', function(request, response){
 					request.session.message = {
 						type: 'warning',
 						intro: 'Username already in use! ',
-						message: 'Please change your username.'
+						message: 'Please change your username or login.'
 					}
 					response.redirect('/signup');
 				// Se non esiste registro il nuovo utente
@@ -180,6 +182,10 @@ app.get('/profile', function(request, response) {
 // aboutus.html
 app.get('/aboutus', function(request, response) {
 	response.render("pages/aboutus", {sessione: request.session});
+});
+
+app.get('/upload', function(request, response) {
+	response.render("pages/upload", {sessione: request.session});
 });
 
 // Porta su cui ascolta il server
