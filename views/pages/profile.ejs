@@ -70,12 +70,24 @@
     </div>
   </section>
 
-  <!-- UPLOADED FOTO SECTION -->
+
+    <div class="container pt-3">
+      <ul class="photo_ul">
+        <% for (let i = 0; i < risultati.length; i++) { %>
+          <li class="photo_li">
+            <img class="photo_img" src="images/<%= risultati[i].immagine %>" loading="lazy">
+          </li>
+        <% } %>
+        <li class="photo_li"></li>
+      </ul>
+    </div>
+
+  <!-- UPLOADED FOTO SECTION 
   <section class="pt-3">
     <div class="container">
       <ul class="photo_ul">
         <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814785/photostream-photos/DSC05466_kwlv0n.jpg" alt="A Toyota Previa covered in graffiti" loading="lazy">
+          <img class="photo_img" src="images/1652289941673.jpg" alt="A Toyota Previa covered in graffiti" loading="lazy">
         </li>
         <li class="photo_li">
           <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814785/photostream-photos/DSC05621_zgtcco.jpg" alt="Interesting living room light through a window" loading="lazy">
@@ -191,11 +203,12 @@
         <li class="photo_li">
           <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814781/photostream-photos/DSC05480_zkw8sm.jpg" alt="Jordan and Sarah looking at the menu in a coffee shop" loading="lazy">
         </li>
-        <!--  Adding an empty <li class="photo_li"> here so the final photo doesn't stretch like crazy. Try removing it and see what happens!  -->
+        <!--  Adding an empty <li class="photo_li"> here so the final photo doesn't stretch like crazy. Try removing it and see what happens!  
         <li class="photo_li"></li>
       </ul>
     </div>
-  </section>
+  </section> -->
+
 
   <!-- MODAL -->
 

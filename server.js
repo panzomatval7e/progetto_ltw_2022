@@ -1,7 +1,7 @@
 const mysql = require('mysql');
 const express = require('express');
 const session = require('express-session');
-const fileUpload = require('express-fileupload');
+const multer = require('multer');
 const path = require('path');
 
 // Create connection with database
@@ -11,6 +11,18 @@ const connection = mysql.createConnection({
 	password : '',
 	database : 'ltw2022'
 });
+
+// Create storage on disk to save uploaded images
+const storage = multer.diskStorage({
+	destination: (req, file, cb) => {
+		cb(null, 'public/images')
+	},
+	filename: (req, file, cb) => {
+		cb(null, Date.now() + path.extname(file.originalname))
+	}
+})
+
+const upload = multer({storage: storage});
 
 // Initialize express
 const app = express();
@@ -31,7 +43,6 @@ app.use(session({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
-app.use(fileUpload());
 
 app.use((req, res, next) =>{
 	res.locals.message = req.session.message;
@@ -150,21 +161,25 @@ app.get('/logout', function(request, response){
 
 // index.ejs
 app.get('/', function(request, response) {
-	response.render("pages/index", {sessione: request.session});
+	connection.query('SELECT immagine FROM immagini', function(error, result, field) {
+		if (error) throw error;
+		const [prova] = result;
+		response.render("pages/index", {sessione: request.session, risultati: result})
+	});
 });
 
 
-// login.html
+// login.ejs
 app.get('/login', function(request, response) {
 	response.render("pages/login", {sessione: request.session});
 });
 
-// registration.html
+// registration.ejs
 app.get('/signup', function(request, response) {
 	response.render("pages/signup", {sessione: request.session});
 });
 
-// profile.html
+// profile.ejs
 app.get('/profile', function(request, response) {
 	connection.query('SELECT username, nome, cognome FROM utenti WHERE username = ?', [request.session.username], function(error, result, field) {
 		if (error) throw error;
@@ -174,18 +189,39 @@ app.get('/profile', function(request, response) {
 		const username = record.username
 		const nome = record.nome
 		const cognome = record.cognome
-		response.render("pages/profile", {username: username, nome: nome, cognome: cognome, sessione: request.session});
+		connection.query('SELECT immagine FROM immagini Where username = ?', [request.session.username], function(error, result, field) {
+			if (error) throw error;
+			const [prova] = result;
+			response.render("pages/profile", {username: username, nome: nome, cognome: cognome, sessione: request.session, risultati: result})
+		});
 	});
-	
 });
 
-// aboutus.html
+// aboutus.ejs
 app.get('/aboutus', function(request, response) {
 	response.render("pages/aboutus", {sessione: request.session});
 });
 
+// upload.ejs
 app.get('/upload', function(request, response) {
 	response.render("pages/upload", {sessione: request.session});
+});
+
+// Salva l'immagine nella cartella "images"
+app.post('/uploadImage', upload.single('image'), function(request, response) {
+	connection.query('INSERT INTO immagini SET ?', {username: request.session.username, immagine: request.file.filename}, (error, results) => {
+		if(error) {
+			console.log(error);
+		} else {
+			request.session.message = {
+				type: 'success',
+				intro: 'Image uploaded succesfully! ',
+				message: ''
+			}
+			response.redirect('/upload');
+		}
+		
+	});
 });
 
 // Porta su cui ascolta il server

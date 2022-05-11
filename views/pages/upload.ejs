@@ -21,9 +21,17 @@
     <div class="container pt-5">
         <div class="row">
             <div class="col-md-6 mx-auto text-center">
-                <input class="form-control" type="file" id="formFile" onchange="preview()">
-                <button type="button" class="btn_apply mt-3 mb-3">Click to upload</button>
-                <img id="frame" src="" class="img-fluid"/>
+                <form action="/uploadImage" method="POST" enctype="multipart/form-data">
+                    <input class="form-control" type="file" name="image" id="formFile" onchange="preview()">
+                    <button type="submit" class="btn_apply mt-3 mb-3">Click to upload</button>
+                    <img id="frame" src="" class="img-fluid"/>
+                </form>
+                <% if (message) { %>
+                    <div style="text-align: center" class="alert alert-<%=message.type%>">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        <strong><%= message.intro %></strong> <%= message.message %>
+                    </div>
+                <% } %>
             </div>
         </div>
     </div>

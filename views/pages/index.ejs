@@ -14,7 +14,18 @@
     <!-- NAVBAR -->
     <%- include('../partials/navbar', {sessione: sessione}); %>
 
-    <!-- FLEXBOX FOTO -->
+    <div class="container pt-3">
+      <ul class="photo_ul">
+        <% for (let i = 0; i < risultati.length; i++) { %>
+          <li class="photo_li">
+            <img class="photo_img" src="images/<%= risultati[i].immagine %>" loading="lazy">
+          </li>
+        <% } %>
+        <li class="photo_li"></li>
+      </ul>
+    </div>
+
+    <!-- FLEXBOX FOTO 
     <div class="container">
       <ul class="photo_ul">
         <li class="photo_li">
@@ -134,10 +145,10 @@
         <li class="photo_li">
           <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814781/photostream-photos/DSC05480_zkw8sm.jpg" alt="Jordan and Sarah looking at the menu in a coffee shop" loading="lazy">
         </li>
-        <!--  Adding an empty <li class="photo_li"> here so the final photo doesn't stretch like crazy. Try removing it and see what happens!  -->
+        <!--  Adding an empty <li class="photo_li"> here so the final photo doesn't stretch like crazy. Try removing it and see what happens!  
         <li class="photo_li"></li>
       </ul>
-    </div>
+    </div> -->
 
 </body>
 </html>
