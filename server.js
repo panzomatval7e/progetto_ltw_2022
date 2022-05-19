@@ -57,28 +57,36 @@ app.post('/auth', (request, response) => {
 	let password = request.body.password;
 	// Ensure the input fields exists and are not empty
 	if (username && password) {
-		// Execute SQL query that'll select the account from the database based on the specified username and password
-		connection.query('SELECT * FROM utenti WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
-			// If there is an issue with the query, output the error
-			if (error) throw error;
-			// If the account exists
-			if (results.length > 0) {
-				// Authenticate the user
-				request.session.loggedin = true;
-				request.session.username = request.body.username;
-				// Redirect to home page
-				response.redirect('/');
+		connection.query('SELECT immagine FROM utenti WHERE username = ?', [username], function(error, results) {
+			if (error) {
+				console.log(error);
 			} else {
-				request.session.message = {
-					type: 'danger',
-					intro: 'Wrong username or password! ',
-					message: 'Please check the informations.'
-				}
-				response.redirect('/login');
-			}			
-			response.end();
+				request.session.profile_image = results[0].immagine;
+				// Execute SQL query that'll select the account from the database based on the specified username and password
+				connection.query('SELECT * FROM utenti WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
+					// If there is an issue with the query, output the error
+					if (error) throw error;
+					// If the account exists
+					if (results.length > 0) {
+						// Authenticate the user
+						request.session.loggedin = true;
+						request.session.username = request.body.username;
+						// Redirect to home page
+						response.redirect('/');
+					} else {
+						request.session.message = {
+							type: 'danger',
+							intro: 'Wrong username or password! ',
+							message: 'Please check the informations.'
+						}
+						response.redirect('/login');
+					}			
+					response.end();
+				});
+			}
+
 		});
-	} else {
+ 	} else {
 		request.session.message = {
 			type: 'danger',
 			intro: 'Empty fields! ',
@@ -86,6 +94,7 @@ app.post('/auth', (request, response) => {
 		}
 		response.redirect('/login');
 	}
+			
 });
 
 // Registrazione (/signup)
@@ -110,7 +119,8 @@ app.post('/signup', function(request, response){
 					response.redirect('/signup');
 				// Se non esiste registro il nuovo utente
 				} else {
-					connection.query('INSERT INTO utenti SET ?', {username: username, mail: mail, password: password}, (error, results) => {
+					request.session.profile_image = 'default_1.jpg';
+					connection.query('INSERT INTO utenti SET ?', {username: username, mail: mail, password: password, immagine: "default_1.jpg"}, (error, results) => {
 						if(error) {
 							console.log(error);
 						} else {
@@ -161,7 +171,7 @@ app.get('/logout', function(request, response){
 
 // index.ejs
 app.get('/', function(request, response) {
-	connection.query('SELECT immagine FROM immagini', function(error, result, field) {
+	connection.query('SELECT immagine FROM immagini WHERE profile_image = false', function(error, result, field) {
 		if (error) throw error;
 		const [prova] = result;
 		response.render("pages/index", {sessione: request.session, risultati: result})
@@ -181,7 +191,7 @@ app.get('/signup', function(request, response) {
 
 // profile.ejs
 app.get('/profile', function(request, response) {
-	connection.query('SELECT username, nome, cognome FROM utenti WHERE username = ?', [request.session.username], function(error, result, field) {
+	connection.query('SELECT username, nome, cognome, immagine FROM utenti WHERE username = ?', [request.session.username], function(error, result, field) {
 		if (error) throw error;
 		const [record] = result
 		console.log(result)
@@ -189,10 +199,11 @@ app.get('/profile', function(request, response) {
 		const username = record.username
 		const nome = record.nome
 		const cognome = record.cognome
-		connection.query('SELECT immagine FROM immagini Where username = ?', [request.session.username], function(error, result, field) {
+		const immagine_profilo = record.immagine
+		connection.query('SELECT immagine FROM immagini WHERE username = ? AND profile_image = false', [request.session.username], function(error, result, field) {
 			if (error) throw error;
 			const [prova] = result;
-			response.render("pages/profile", {username: username, nome: nome, cognome: cognome, sessione: request.session, risultati: result})
+			response.render("pages/profile", {username: username, nome: nome, cognome: cognome, immagine_profilo: immagine_profilo, sessione: request.session, risultati: result})
 		});
 	});
 });
@@ -209,18 +220,148 @@ app.get('/upload', function(request, response) {
 
 // Salva l'immagine nella cartella "images"
 app.post('/uploadImage', upload.single('image'), function(request, response) {
-	connection.query('INSERT INTO immagini SET ?', {username: request.session.username, immagine: request.file.filename}, (error, results) => {
+	connection.query('INSERT INTO immagini SET ?', {username: request.session.username, immagine: request.file.filename, camera: request.body.camera, lente: request.body.lens, iso: request.body.ISO, f: request.body.F, profile_image: false}, (error, results) => {
 		if(error) {
 			console.log(error);
 		} else {
 			request.session.message = {
 				type: 'success',
-				intro: 'Image uploaded succesfully! ',
+				intro: 'Image uploaded successfully! ',
 				message: ''
 			}
 			response.redirect('/upload');
 		}
 		
+	});
+});
+
+// Cambia immagine profilo
+app.post('/profile_img_change', upload.single('image'), function(request, response) {
+	if (request.file !== undefined){
+		request.session.profile_image = request.file.filename;
+		connection.query('INSERT INTO immagini SET ?', {username: request.session.username, immagine: request.file.filename, profile_image: true}, (error, results) => {
+			connection.query('UPDATE utenti SET immagine = ? WHERE utenti.username = ?', [request.file.filename, request.session.username], (error, results) => {
+				if(error)
+					console.log(error);
+			});
+			if(error) {
+				console.log(error);
+			} else {
+				request.session.message = {
+					type: "success",
+					intro: "Profile image changed successfully! ",
+					message: ''
+				}
+				response.redirect('/profile');
+			}
+		});
+	} else {
+		request.session.message = {
+			type: "danger",
+			intro: "Select an image ",
+			message: ''
+		}
+		response.redirect('/profile');
+	}
+	
+});
+
+// Cambia nome
+app.post('/change_name', function(request, response) {
+	connection.query('UPDATE utenti SET nome = ? WHERE utenti.username = ?', [request.body.newName, request.session.username], (error, results) => {
+		if(error){
+			console.log(error);
+		} else {
+			request.session.message = {
+				type: "success",
+				intro: "Name changed successfully! ",
+				message: ''
+			}
+			response.redirect('/profile');
+		}
+	});
+});
+
+// Cambia cognome
+app.post('/change_surname', function(request, response) {
+	connection.query('UPDATE utenti SET cognome = ? WHERE utenti.username = ?', [request.body.newSurname, request.session.username], (error, results) => {
+		if(error){
+			console.log(error);
+		} else {
+			request.session.message = {
+				type: "success",
+				intro: "Surname changed successfully! ",
+				message: ''
+			}
+			response.redirect('/profile');
+		}
+	});
+});
+
+// Cambia username
+app.post('/change_username', function(request, response) {
+	connection.query('SELECT * FROM utenti WHERE username = ?', [request.body.newUsername], (error, results) => {
+		if(error){
+			console.log(error);
+		// se l'username già esiste
+		} else if (results.length > 0){
+			request.session.message = {
+				type: "danger",
+				intro: "Username already in use! ",
+				message: 'Please choose another one.'
+			}
+			response.redirect('/profile');
+		// se invece non esiste lo imposto
+		} else {
+			connection.query('UPDATE utenti SET username = ? WHERE utenti.username = ?', [request.body.newUsername, request.session.username], (error, results) => {
+				if(error){
+					console.log(error);
+				} else {
+					connection.query('UPDATE immagini SET username = ? where immagini.username = ?', [request.body.newUsername, request.session.username], (error, results) => {
+						if(error){
+							console.log(error);
+						} else {
+							request.session.username = request.body.newUsername;
+							request.session.message = {
+								type: "success",
+								intro: "Username changed successfully! ",
+								message: ''
+							}
+							response.redirect('/profile');
+						}
+					});
+				}
+			});
+		}
+	});
+});
+
+app.post('/psw_change', function(request, response) {
+	connection.query('SELECT password FROM utenti WHERE username = ?', [request.session.username], (error, results) => {
+		if (error){
+			console.log(error);
+		// Se la password vecchia inserita è giusta e la password nuova combacia allora la cambio
+		} else if (request.body.oldPsw == results[0].password && request.body.newPsw1 == request.body.newPsw2) {
+			connection.query('UPDATE utenti SET password = ? WHERE utenti.username = ?', [request.body.newPsw1, request.session.username], (error, results) => {
+				if(error){
+					console.log(error);
+				} else {
+					request.session.message = {
+						type: "success",
+						intro: "Password changed successfully! ",
+						message: ''
+					}
+					response.redirect('/profile');
+				}
+			});
+		} else {
+			request.session.message = {
+				type: "danger",
+				intro: "Incorrect data! ",
+				message: "please check the data"
+			}
+			response.redirect("/profile");
+		}
 	});
 });
 

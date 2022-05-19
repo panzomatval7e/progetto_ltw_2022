@@ -16,13 +16,23 @@
 
   <!-- PROFILE SECTION -->
   <section>
-    <div class="container pt-5">
+    <div class="container pt-3">
       <div class="row align-items-center justify-content-between">
         <div class="col-md text-center">
-          <img src="https://github.com/mdo.png" class="img-fluid pb-2" alt="">
-          <button type="button" class="btn_apply profile_pic mb-1">Change profile image</button>
+          <div class="row">
+            <img src="images/<%= immagine_profilo %>" class="img-fluid pb-2" alt="">
+          </div>
+          <div class="row">
+            <button type="button" class="btn btn_apply mb-1" data-bs-toggle="modal" data-bs-target="#profileimagechange">Change profile image</button>
+          </div>
         </div>        
         <div class="col-md">
+          <% if (message) { %>
+            <div style="text-align: center" class="alert alert-<%=message.type%>">
+                <button type="button" class="btn btn-close" data-bs-dismiss="alert"></button>
+                <strong><%= message.intro %></strong> <%= message.message %>
+            </div>
+          <% } %>
           <form class="form-container g-5" method="POST">
             <!-- USERNAME -->
             <div class="input-group mb-3 align-items-center justify-content-between">
@@ -30,7 +40,7 @@
                 <label><%= username %></label>
               </div>
               <div class="col-auto">
-                <button type="button" class="btn_apply mb-3" data-bs-toggle="modal" data-bs-target="#usernamechange">Change it</button>
+                <button type="button" class="btn btn_apply mb-3" data-bs-toggle="modal" data-bs-target="#usernamechange">Change it</button>
               </div>
             </div>
             <!-- NAME -->
@@ -39,7 +49,7 @@
                 <label><%= nome %></label>
               </div>
               <div class="col-auto">
-                <button type="button" class="btn_apply mb-3" data-bs-toggle="modal" data-bs-target="#namechange">Change it</button>
+                <button type="button" class="btn btn_apply mb-3" data-bs-toggle="modal" data-bs-target="#namechange">Change it</button>
               </div>
             </div>
             <!-- SURNAME -->
@@ -48,7 +58,7 @@
                 <label><%= cognome %></label>
               </div>
               <div class="col-auto">
-                <button type="button" class="btn_apply mb-3" data-bs-toggle="modal" data-bs-target="#surnamechange">Change it</button>
+                <button type="button" class="btn btn_apply mb-3" data-bs-toggle="modal" data-bs-target="#surnamechange">Change it</button>
               </div>
             </div>
             <div class="input-group mb-2 align-items-center justify-content-between">
@@ -56,159 +66,27 @@
                 <label>Password</label>
               </div>
               <div class="col-auto">
-                <button type="button" class="btn_psw mb-3" data-bs-toggle="modal" data-bs-target="#pswchange">Change password</button>
+                <button type="button" class="btn btn_psw mb-3" data-bs-toggle="modal" data-bs-target="#pswchange">Change password</button>
               </div>
             </div>
           </form>
-          <!--
-            <div class="form-row">
-              <button class="btn_psw mb-3" data-bs-toggle="modal" data-bs-target="#pswchange">Change password</button> 
-            </div>
-          -->
         </div>
       </div>
     </div>
   </section>
 
-
-    <div class="container pt-3">
-      <ul class="photo_ul">
-        <% for (let i = 0; i < risultati.length; i++) { %>
-          <li class="photo_li">
-            <img class="photo_img" src="images/<%= risultati[i].immagine %>" loading="lazy">
-          </li>
-        <% } %>
-        <li class="photo_li"></li>
-      </ul>
-    </div>
-
-  <!-- UPLOADED FOTO SECTION 
-  <section class="pt-3">
-    <div class="container">
-      <ul class="photo_ul">
+  <!-- UPLOADED FOTO SECTION -->
+  <div class="container pt-3">
+    <ul class="photo_ul">
+      <!-- invertire ordine di stampa -->
+      <% for (let i = risultati.length-1; i >= 0; i--) { %>
         <li class="photo_li">
-          <img class="photo_img" src="images/1652289941673.jpg" alt="A Toyota Previa covered in graffiti" loading="lazy">
+          <img class="photo_img" src="images/<%= risultati[i].immagine %>" loading="lazy">
         </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814785/photostream-photos/DSC05621_zgtcco.jpg" alt="Interesting living room light through a window" loading="lazy">
-        </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814785/photostream-photos/DSC05513_gfbiwi.jpg" alt="Sara on a red bike" loading="lazy">
-        </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814785/photostream-photos/DSC05588_nb0dma.jpg" alt="XOXO venue in between talks" loading="lazy">
-        </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814785/photostream-photos/DSC05459_ziuomy.jpg" alt="Trees lit by green light during dusk" loading="lazy">
-        </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814785/photostream-photos/DSC05586_oj8jfo.jpg" alt="Portrait of Justin Pervorse" loading="lazy">
-        </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814785/photostream-photos/DSC05465_dtkwef.jpg" alt="Empty bike racks outside a hotel" loading="lazy">
-        </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814785/photostream-photos/DSC05626_ytsf3j.jpg" alt="Heavy rain on an intersection" loading="lazy">
-        </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814785/photostream-photos/DSC05449_l9kukz.jpg" alt="Payam Rajabi eating peanut chicken" loading="lazy">
-        </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814785/photostream-photos/DSC05544_aczrb9.jpg" alt="Portland skyline sunset" loading="lazy">
-        </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814785/photostream-photos/DSC05447_mvffor.jpg" alt="Interior at Nong's" loading="lazy">
-        </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814784/photostream-photos/DSC05501_yirmq8.jpg" alt="A kimchi hotdog on a plate" loading="lazy">
-        </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814784/photostream-photos/DSC05624_f5b2ud.jpg" alt="Restaurant window with graffiti saying 'water'" loading="lazy">
-        </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814784/photostream-photos/DSC05623_dcpfva.jpg" alt="Portrait of Jeremy Tanner" loading="lazy">
-        </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814784/photostream-photos/DSC05515_d2gzut.jpg" alt="Jordan, Sarah and Sara on red bikes, waiting" loading="lazy">
-        </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814784/photostream-photos/DSC05581_ceocwv.jpg" alt="Barista wearing a hoodie saying 'Coffee Should Be Dope.'" loading="lazy">
-        </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814784/photostream-photos/DSC05517_ni2k0p.jpg" alt="Payam crossing the street on a bike" loading="lazy">
-        </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814783/photostream-photos/DSC05620_qfwycq.jpg" alt="Lit trees reflected in a puddle" loading="lazy">
-        </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814783/photostream-photos/DSC05462_b33uvp.jpg" alt="Moody chair in my hotel room" loading="lazy">
-        </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814783/photostream-photos/DSC05489_mqzktl.jpg" alt="Tom and Jenn wearing sunglasses" loading="lazy">
-        </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814783/photostream-photos/DSC05476_dlkjza.jpg" alt="Jordan and Sarah in front of a restaurant window" loading="lazy">
-        </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814783/photostream-photos/DSC05497_abbd3c.jpg" alt="Sarah reading the Double Dragon drink menu" loading="lazy">
-        </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814782/photostream-photos/DSC05487_fcdv7t.jpg" alt="Beer brewing equipment" loading="lazy">
-        </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814782/photostream-photos/DSC05493_q6njbk.jpg" alt="2 cocktails in the making" loading="lazy">
-        </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814782/photostream-photos/DSC05446_xj60ff.jpg" alt="Beverage fridge at Nong's" loading="lazy">
-        </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814782/photostream-photos/DSC05559_hu49zx.jpg" alt="Wood structure reflections" loading="lazy">
-        </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814782/photostream-photos/DSC05482_dtrj02.jpg" alt="Colorful garden equipment in a shop window" loading="lazy">
-        </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814782/photostream-photos/DSC05565_dx5rp6.jpg" alt="Sarah in front of a wooden wall" loading="lazy">
-        </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814782/photostream-photos/DSC05613_o9af2z.jpg" alt="A neon banana" loading="lazy">
-        </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814782/photostream-photos/DSC05469_fdxdzx.jpg" alt="Matt Sacks smiling while we're waiting for food" loading="lazy">
-        </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814782/photostream-photos/DSC05558_yq2tnz.jpg" alt="A fixed-gear bike under some bright lights" loading="lazy">
-        </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814781/photostream-photos/DSC05483_dyiuya.jpg" alt="Panic's PlayDate being held by a tester" loading="lazy">
-        </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814781/photostream-photos/DSC05468_xzbtcd.jpg" alt="Window reflection of me and Payam" loading="lazy">
-        </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814781/photostream-photos/DSC05457_nloycw.jpg" alt="Upside down shopping carts" loading="lazy">
-        </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814781/photostream-photos/DSC05522_mekpec.jpg" alt="Payam riding a bike with no hands" loading="lazy">
-        </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814781/photostream-photos/DSC05611_lbwtmk.jpg" alt="A kid's pillow left on the bench of a bus stop" loading="lazy">
-        </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814781/photostream-photos/DSC05572_xfvij7.jpg" alt="My reflection in the mirror" loading="lazy">
-        </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814781/photostream-photos/DSC05481_gnljae.jpg" alt="Jordan holding an iced coffee against his head to cool down" loading="lazy">
-        </li>
-        <li class="photo_li">
-          <img class="photo_img" src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1568814781/photostream-photos/DSC05480_zkw8sm.jpg" alt="Jordan and Sarah looking at the menu in a coffee shop" loading="lazy">
-        </li>
-        <!--  Adding an empty <li class="photo_li"> here so the final photo doesn't stretch like crazy. Try removing it and see what happens!  
-        <li class="photo_li"></li>
-      </ul>
-    </div>
-  </section> -->
-
+      <% } %>
+      <li class="photo_li"></li>
+    </ul>
+  </div>
 
   <!-- MODAL -->
 
@@ -221,16 +99,16 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form>
+          <form action="change_username" method="POST">
             <div class="form-floating mb-3">
-              <input type="text" class="form-control" id="floatingNewUsername" placeholder="New username">
+              <input type="text" class="form-control" id="floatingNewUsername" placeholder="New username" name="newUsername">
               <label for="floatingNewUsername" class="col-form-label">New username</label>
             </div>
-          </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Change username</button>
+          <button type="submit" class="btn btn-primary">Change username</button>
+          </form>
         </div>
       </div>
     </div>
@@ -245,16 +123,16 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form>
+          <form action="/change_name" method="POST">
             <div class="form-floating mb-3">
-              <input type="text" class="form-control" id="floatingNewName" placeholder="New name">
+              <input type="text" class="form-control" id="floatingNewName" placeholder="New name" name="newName">
               <label for="floatingNewName" class="col-form-label">New name</label>
             </div>
-          </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Change name</button>
+          <button type="submit" class="btn btn-primary">Change name</button>
+          </form>
         </div>
       </div>
     </div>
@@ -269,16 +147,16 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form>
+          <form action="change_surname" method="POST">
             <div class="form-floating mb-3">
-              <input type="text" class="form-control" id="floatingNewSurname" placeholder="New surname">
+              <input type="text" class="form-control" id="floatingNewSurname" placeholder="New surname" name="newSurname">
               <label for="floatingNewSurname" class="col-form-label">New surname</label>
             </div>
-          </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Change surname</button>
+          <button type="submit" class="btn btn-primary">Change surname</button>
+          </form>
         </div>
       </div>
     </div>
@@ -293,25 +171,48 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form>
+          <form action="/psw_change" method="POST">
             <div class="form-floating mb-3">
-              <input type="password" class="form-control" id="floatingOldPsw" placeholder="Old password">
+              <input type="password" class="form-control" id="floatingOldPsw" placeholder="Old password" name="oldPsw">
               <label for="floatingOldPsw" class="col-form-label">Old password</label>
             </div>
             <div class="form-floating mb-3">
-              <input type="password" class="form-control" id="floatingNewPsw1" placeholder="New password">
+              <input type="password" class="form-control" id="floatingNewPsw1" placeholder="New password" name="newPsw1">
               <label for="floatingNewPsw1" class="col-form-label">New password</label>
             </div>
             <div class="form-floating mb-3">
-              <input type="password" class="form-control" id="floatingNewPsw2" placeholder="Repeat new password">
+              <input type="password" class="form-control" id="floatingNewPsw2" placeholder="Repeat new password" name="newPsw2">
               <label for="floatingNewPsw2" class="col-form-label">Repeat new password</label>
             </div>
-          </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Change password</button>
+          <button type="submit" class="btn btn-primary">Change password</button>
+          </form>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL PROFILE IMAGE CHANGE -->
+  <div class="modal fade" id="profileimagechange" tabindex="-1" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="">Profile image change</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="/profile_img_change" method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+              <input type="file" class="form-control" id="floatingNewImage" name="image">
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Change profile image</button>
+        </div>
+          </form>
       </div>
     </div>
   </div>

@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 sticky-top shadow">
     <div class="container">
       
-      <a href="/" class="navbar-brand d-flex mr-auto">Photo Community</a>
+      <a href="/" class="mr-auto d-flex"><img src="images/logo.jpg"></a>
 
       <button
         class="navbar-toggler ms-auto me-2"
@@ -32,7 +32,7 @@
       <% if(sessione.loggedin == true){ %>
           <div class="dropdown text-end">
               <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                <img src="images/<%= sessione.profile_image %>" alt="mdo" width="32" height="32" class="rounded-circle">
               </a>
               <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
                 <li><a class="dropdown-item" href="/profile">Profile</a></li>

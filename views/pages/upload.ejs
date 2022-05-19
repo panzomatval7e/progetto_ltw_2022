@@ -20,20 +20,28 @@
 
     <div class="container pt-5">
         <div class="row">
-            <div class="col-md-6 mx-auto text-center">
+            <div class="col-md">
                 <form action="/uploadImage" method="POST" enctype="multipart/form-data">
+                    <% if (message) { %>
+                        <div style="text-align: center" class="alert alert-<%=message.type%>">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            <strong><%= message.intro %></strong> <%= message.message %>
+                        </div>
+                    <% } %>
                     <input class="form-control" type="file" name="image" id="formFile" onchange="preview()">
+                    <input type="text" class="form-control mt-3" name="camera" placeholder="Camera">
+                    <input type="text" class="form-control mt-3" name="lens" placeholder="Lens">
+                    <input type="text" class="form-control mt-3" name="ISO" placeholder="ISO">
+                    <input type="text" class="form-control mt-3" name="F" placeholder="F">
                     <button type="submit" class="btn_apply mt-3 mb-3">Click to upload</button>
-                    <img id="frame" src="" class="img-fluid"/>
                 </form>
-                <% if (message) { %>
-                    <div style="text-align: center" class="alert alert-<%=message.type%>">
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        <strong><%= message.intro %></strong> <%= message.message %>
-                    </div>
-                <% } %>
+            </div>
+            <div class="col-md">
+                <img id="frame" src="" class="img-fluid">
             </div>
         </div>
     </div>
+
+    
 </body>
 </html>
