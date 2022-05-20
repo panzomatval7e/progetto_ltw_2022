@@ -218,9 +218,16 @@ app.get('/upload', function(request, response) {
 	response.render("pages/upload", {sessione: request.session});
 });
 
+// image.ejs
+app.get('/image/:tagId', function(request, response) {
+	connection.query('SELECT * FROM immagini WHERE immagine = ?', [request.params.tagId], (error, results) => {
+		response.render("pages/image", {sessione: request.session, tagID: request.params.tagId, risultato: results});
+	});
+});
+
 // Salva l'immagine nella cartella "images"
 app.post('/uploadImage', upload.single('image'), function(request, response) {
-	connection.query('INSERT INTO immagini SET ?', {username: request.session.username, immagine: request.file.filename, camera: request.body.camera, lente: request.body.lens, iso: request.body.ISO, f: request.body.F, profile_image: false}, (error, results) => {
+	connection.query('INSERT INTO immagini SET ?', {username: request.session.username, immagine: request.file.filename, camera: request.body.camera, lente: request.body.lens, iso: request.body.ISO, f: request.body.F, profile_image: false, shutter_speed: request.body.shutter_speed, distanza: request.body.focal_length, categoria: request.body.categoria}, (error, results) => {
 		if(error) {
 			console.log(error);
 		} else {
@@ -336,6 +343,7 @@ app.post('/change_username', function(request, response) {
 	});
 });
 
+// Cambia password
 app.post('/psw_change', function(request, response) {
 	connection.query('SELECT password FROM utenti WHERE username = ?', [request.session.username], (error, results) => {
 		if (error){

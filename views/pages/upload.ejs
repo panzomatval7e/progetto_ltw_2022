@@ -31,8 +31,19 @@
                     <input class="form-control" type="file" name="image" id="formFile" onchange="preview()">
                     <input type="text" class="form-control mt-3" name="camera" placeholder="Camera">
                     <input type="text" class="form-control mt-3" name="lens" placeholder="Lens">
+                    <input type="text" class="form-control mt-3" name="focal_length" placeholder="Focal length">
                     <input type="text" class="form-control mt-3" name="ISO" placeholder="ISO">
                     <input type="text" class="form-control mt-3" name="F" placeholder="F">
+                    <input type="text" class="form-control mt-3" name="shutter_speed" placeholder="Shutter speed">
+                    <select class="form-select mt-3" name="categoria">
+                        <option selected>Categories</option>
+                        <option value="portrait">Portrait</option>
+                        <option value="landscape">Landscape</option>
+                        <option value="sport">Sport</option>
+                        <option value="macro">Macro</option>
+                        <option value="food">Food</option>
+                        <option value="animal">Animal</option>
+                      </select>
                     <button type="submit" class="btn btn-black mt-3 mb-3">Click to upload</button>
                 </form>
             </div>
