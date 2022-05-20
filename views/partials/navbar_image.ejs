@@ -1,3 +1,17 @@
+<style>
+  .dropdown-item:active, .dropdown-item:focus{
+    background-color: rgb(233, 233, 233)  !important; 
+  }
+
+  .logout:hover{
+    background-color: rgba(253, 72, 17, 0.885) !important;
+  }
+
+  .form-control:focus, .form-control:active {
+    border-color: rgb(233, 233, 233) !important;
+    box-shadow: 0 0 0 0.2rem rgb(233, 233, 233) !important;
+  }
+</style>
 <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 sticky-top shadow">
     <div class="container">
       
@@ -23,8 +37,8 @@
         </ul>
         <ul class="navbar-nav ms-auto me-2">
           <li>
-              <form>
-                  <input type="search" class="form-control" placeholder="Search" aria-label="Search">
+              <form action="/searchUser" method="POST">
+                  <input name="user_search" type="search" class="form-control" placeholder="Search user" aria-label="Search user">
               </form>
           </li>
       </ul>

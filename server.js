@@ -225,21 +225,45 @@ app.get('/image/:tagId', function(request, response) {
 	});
 });
 
+// user.ejs
+app.get('/user/:username', function(request, response) {
+	connection.query('SELECT immagine FROM immagini WHERE username = ? AND profile_image = false', [request.params.username], (error, results) => {
+		connection.query('SELECT mail, nome, cognome, immagine FROM utenti WHERE username = ?', [request.params.username], (error, results_1) => {
+			if (error){
+				console.log(error);
+			} else {
+				response.render("pages/user", {sessione: request.session, user: request.params.username, risultato_img: results, risultato_user: results_1});
+			}
+		});
+	});
+});
+
+// POST
+
 // Salva l'immagine nella cartella "images"
 app.post('/uploadImage', upload.single('image'), function(request, response) {
-	connection.query('INSERT INTO immagini SET ?', {username: request.session.username, immagine: request.file.filename, camera: request.body.camera, lente: request.body.lens, iso: request.body.ISO, f: request.body.F, profile_image: false, shutter_speed: request.body.shutter_speed, distanza: request.body.focal_length, categoria: request.body.categoria}, (error, results) => {
-		if(error) {
-			console.log(error);
-		} else {
-			request.session.message = {
-				type: 'success',
-				intro: 'Image uploaded successfully! ',
-				message: ''
+	if (request.file !== undefined){
+		connection.query('INSERT INTO immagini SET ?', {username: request.session.username, immagine: request.file.filename, camera: request.body.camera, lente: request.body.lens, iso: request.body.ISO, f: request.body.F, profile_image: false, shutter_speed: request.body.shutter_speed, distanza: request.body.focal_length, categoria: request.body.categoria}, (error, results) => {
+			if(error) {
+				console.log(error);
+			} else {
+				request.session.message = {
+					type: 'success',
+					intro: 'Image uploaded successfully! ',
+					message: ''
+				}
+				response.redirect('/upload');
 			}
-			response.redirect('/upload');
+			
+		});
+	} else {
+		request.session.message = {
+			type: "danger",
+			intro: "Please select an image! ",
+			message: ''
 		}
-		
-	});
+		response.redirect('/upload');
+	}
 });
 
 // Cambia immagine profilo
@@ -369,6 +393,20 @@ app.post('/psw_change', function(request, response) {
 				message: "please check the data"
 			}
 			response.redirect("/profile");
+		}
+	});
+});
+
+// Ricerca utente
+app.post('/searchUser', function(request, response) {
+	connection.query('SELECT username FROM utenti WHERE username = ?', [request.body.user_search], (error, results) => {
+		if (error) {
+			console.log(error);
+		// se non viene trovato un utente con quel nome
+		} else if (results.length < 1){
+			response.redirect("/");
+		} else {
+			response.redirect("/user/"+results[0].username);
 		}
 	});
 });
