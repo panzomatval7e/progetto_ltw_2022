@@ -2,8 +2,6 @@ body {
     font-family: "Lato", sans-serif;
 }
 
-
-
 .main-head{
     height: 150px;
     background: #FFF;
@@ -97,4 +95,15 @@ body {
     background: white;
     border: 1px solid;
     color: grey;
+}
+
+
+.btn:focus, .btn:active {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+.form-control:focus, .form-control:active, .form-control:visited {
+    border-color: rgb(233, 233, 233) !important;
+    box-shadow: 0 0 0 0.2rem rgb(233, 233, 233) !important;
 }
