@@ -1,7 +1,3 @@
-body {
-    font-family: "Lato", sans-serif;
-}
-
 .main-head{
     height: 150px;
     background: #FFF;
@@ -24,19 +20,20 @@ body {
     .sidenav {padding-top: 15px;}
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (min-width: 450px) {
     .login-form{
-        margin-top: 10%;
+        margin:5%
     }
 
     .register-form{
-        margin-top: 10%;
+        margin:5%
     }
 }
 
 @media screen and (min-width: 768px){
     .main{
-        margin-left: 40%; 
+        margin-left: 40%;
+        padding: 10% 0;
     }
 
     .sidenav{
@@ -45,42 +42,78 @@ body {
         z-index: 1;
         top: 0;
         left: 0;
-    }
-
-    .login-form{
-        margin-top: 80%;
-    }
-
-    .register-form{
-        margin-top: 20%;
-    }
+    }    
 }
 
 
-.login-main-text{
+.side-text{
     margin-top: 20%;
     padding: 60px;
     color: #fff;
 }
 
-.login-main-text h2{
+.side-text h2{
     font-weight: 300;
+    font-Family: 'Roboto Condensed', Sans-Serif;
 }
 
-.btn-black{
+.form-group {
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    padding: 0.4rem;
+    display: grid;
+    grid-template-columns: 15% 85%;
+    line-height: 2rem;
+}
+
+.form-group i {
+    text-align: center;
+    color: black;
+    line-height: 2rem;
+}
+
+/* per label al posto delle icon
+.form-group label {
+    font-size: small;
+    font-weight: 600;
+    color: rgb(59, 59, 59);
+    padding-top: 0.1em;
+    padding-left: 0.1em;
+} */
+
+.form-group input, .form-group input:active, .form-group input:focus {
+    background: none !important;
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+
+}
+
+.btn-black {
     border: 1px solid;
     outline: none;
     background-color: black;
     color: white;
     border-radius: 4px;
-    font-weight: bold;
+    font-weight:bold ;
+    margin: auto;
+    line-height: 2rem;
+    transition: all 0.5s;
+    width: 100%;
 }
 
-.btn-black:hover{
+.btn-black:hover {
     background: white;
     border: 1px solid;
-    color: black ;
+    color: black;
 }
+
+.register {
+    padding-top: 30px;
+    margin-bottom: 0px;
+}
+
 
 .btn-grey{
     border: 1px solid;
@@ -89,6 +122,11 @@ body {
     color: white;
     border-radius: 4px;
     font-weight: bold;
+    margin: auto;
+    line-height: 2rem;
+    transition: all 0.5s;
+    width: 100%;
+    margin-bottom: 20px;
 }
 
 .btn-grey:hover{
@@ -97,16 +135,14 @@ body {
     color: grey;
 }
 
+.btn {
+    text-align: center !important;
+}
 
 .btn:focus, .btn:active {
     outline: none !important;
     box-shadow: none !important;
   }
-
-.form-control:focus, .form-control:active, .form-control:visited {
-    border-color: rgb(233, 233, 233) !important;
-    box-shadow: 0 0 0 0.2rem rgb(233, 233, 233) !important;
-}
 
 @media(min-width: 992px) {
     .login{

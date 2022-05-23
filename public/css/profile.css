@@ -1,10 +1,8 @@
-body {
-    font-family: "Lato", sans-serif;
-}
-
 @media screen and (max-width: 450px) {
     .profile-info{
         margin-top: 10%;
+        width: auto;
+        height: auto;
     }
 }
 
@@ -15,44 +13,106 @@ body {
     .profile-info{
         margin-top: 80%;
     }
+    .name {
+        text-align: left;
+    }
 }
+
+.frame_col {
+    padding-left: 50px ;
+    padding-right: 50px;
+}
+.round-pic{
+    border-radius: 100%;
+    padding: 12px;
+    margin: 40px;
+    min-width: 150px;
+    max-width: 200px;
+    height: auto;
+}
+
+/* new design*/
+.name {
+    margin: 0;
+    min-width: 0;
+}
+
+.name-text {
+    line-height: 1.25;
+    font-size: 24px;
+    font-weight: bold;
+}
+.username-text {
+    font-size: 100%;
+    padding-bottom: 8px;
+    line-height: 1; 
+}
+.info-text {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 30px;
+    text-decoration-color: white;
+    text-decoration-style: solid;
+}
+
+.form_label {
+    font-size: small;
+    font-weight: 600;
+    color: rgb(59, 59, 59);
+    padding-top: 0.1em;
+    padding-left: 0.1em;
+    margin-top: 1.5em;
+} 
+
+/* ---- BUTTONS STYLE ----*/
 
 .btn-black{
     border: 1px solid;
     outline: none;
-    background-color: black !important; 
-    color: white !important;
+    background-color: black ; 
+    color: white;
     border-radius: 4px;
-    font-weight: bold !important;
+    font-size: small;
+    font-weight: bold;
+    line-height: 1.5rem;
+    transition: all 0.5s;
 }
 
 .btn-black:hover{
-    background-color: white !important;
-    border-color: black !important;
+    background: white;
     border: 1px solid;
-    color: black !important;
+    color: black;
 }
-
-.btn:focus, .btn:active {
-    outline: none !important;
-    box-shadow: none !important;
-  }
 
 .btn-grey{
     border: 1px solid;
     outline: none;
-    background-color: grey !important;
-    color: white !important;
+    background-color: grey;
+    color: white;
     border-radius: 4px;
-    font-weight: bold !important;
+    font-size: small;
+    font-weight: bold;
+    line-height: 1.5rem;
+    transition: all 0.5s;
 }
 
 .btn-grey:hover{
-    background: white !important;
+    background: white;
     border: 1px solid;
-    color: grey !important;
+    color: grey;
 }
 
+.btn {
+    text-align: center;
+}
+
+.btn:focus, .btn:active {
+    outline: none;
+    box-shadow: none;
+}
+
+
+/* ---- BUTTONS STYLE ----*/
 .profile_pic{
   width: 50%;
 }
