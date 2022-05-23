@@ -1,0 +1,7 @@
+.link_user {
+    color: black;
+}
+
+.link_user:hover {
+    color: grey;
+}

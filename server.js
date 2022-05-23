@@ -149,7 +149,7 @@ app.post('/signup', function(request, response){
 		request.session.message = {
 			type: 'danger',
 			intro: 'Empty fields! ',
-			message: 'Please insert username and password.'
+			message: 'Please insert username, name, email and password.'
 		}
 		response.redirect('/signup');
 	}

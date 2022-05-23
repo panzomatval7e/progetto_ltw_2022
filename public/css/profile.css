@@ -1,27 +1,9 @@
-@media screen and (max-width: 450px) {
-    .profile-info{
-        margin-top: 10%;
-        width: auto;
-        height: auto;
-    }
-}
-
 @media screen and (min-width: 768px){
-    .main{
-        margin-left: 40%; 
-    }
-    .profile-info{
-        margin-top: 80%;
-    }
     .name {
         text-align: left;
     }
 }
-
-.frame_col {
-    padding-left: 50px ;
-    padding-right: 50px;
-}
+/* profile pic style*/
 .round-pic{
     border-radius: 100%;
     padding: 12px;
@@ -31,7 +13,7 @@
     height: auto;
 }
 
-/* new design*/
+/* text header user info*/
 .name {
     margin: 0;
     min-width: 0;
@@ -47,14 +29,8 @@
     padding-bottom: 8px;
     line-height: 1; 
 }
-.info-text {
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 30px;
-    text-decoration-color: white;
-    text-decoration-style: solid;
-}
 
+/* ---- MODAL STYLE ---- */
 .form_label {
     font-size: small;
     font-weight: 600;
@@ -109,38 +85,6 @@
 .btn:focus, .btn:active {
     outline: none;
     box-shadow: none;
-}
-
-
-/* ---- BUTTONS STYLE ----*/
-.profile_pic{
-  width: 50%;
-}
-
-.btn_profile{
-  width: 25%;
-}
-
-.btn_psw{
-    border: 1px solid;
-    outline: none;
-    height: 50px;
-    width: 100%;
-    background-color: grey !important;
-    color: white !important;
-    border-radius: 0.25rem;
-    font-weight: bold !important;
-}
-
-.btn_psw:hover{
-    background: white !important;
-    border: 1px solid;
-    color: grey !important;
-}
-
-.logo{
-    border-radius: 0.25rem;
-    width: 100%;
 }
 
 .form-control:focus, .form-control:active {
