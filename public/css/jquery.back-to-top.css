@@ -14,9 +14,9 @@
 
 .bck.bck-on {visibility: visible;}
 
-.fade{opacity: 0;}
+.fade_bck{opacity: 0;}
 
-.bck-on.fade{opacity: 1;}
+.bck-on.fade_bck{opacity: 1;}
 
 .rightToLeft {right : -50px;}
 

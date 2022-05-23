@@ -6,7 +6,7 @@
 	var settings = $.extend({
 		iconName : 'fas fa-chevron-up',
 		trigger : 300,
-		fxName : 'fade',
+		fxName : 'fade_bck',
 		fxTransitionDuration : 300,
 		scrollDuration : 300
 	}, options );	
