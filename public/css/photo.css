@@ -60,3 +60,9 @@
     min-width: 0;
   }
 }
+
+@media(min-width: 992px) {
+  .login{
+    order: 1;
+  }
+}
