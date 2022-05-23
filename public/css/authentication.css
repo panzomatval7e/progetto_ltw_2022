@@ -107,3 +107,9 @@ body {
     border-color: rgb(233, 233, 233) !important;
     box-shadow: 0 0 0 0.2rem rgb(233, 233, 233) !important;
 }
+
+@media(min-width: 992px) {
+    .login{
+      order: 1;
+    }
+}
