@@ -27,7 +27,7 @@
 
       <div class="col-md-4 text-center profile_info">
         <div class="name">
-          <h1 class="name-text"><%= nome %> <%= cognome %></h1>
+          <h1 class="name-text"><%= nome %></h1>
         </div>
         <div class="name">
           <h2 class="username-text">@<%= username %></h2>
@@ -62,8 +62,6 @@
           <form action="change_username" method="POST">
             <label class="form_label">New name:</label>
               <input type="text" class="form-control" id="floatingNewName" placeholder="New name" name="newName">
-            <label class="form_label">New surname:</label>
-              <input type="text" class="form-control" id="floatingNewSurname" placeholder="New surname" name="newSurname">
             <label class="form_label">New username:</label>
               <input type="text" class="form-control" id="floatingNewUsername" placeholder="New username" name="newUsername">
             <label class="form_label">Old password:</label>
