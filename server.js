@@ -169,11 +169,20 @@ app.get('/logout', function(request, response){
 	response.redirect('/');
 });
 
+app.get('/filter/:category', function(request, response) {
+	connection.query('SELECT immagine FROM immagini WHERE categoria = ?', [request.params.category], (error, results)=> {
+		if (error) {
+			console.log(error);
+		} else {
+			response.render("pages/category", {sessione: request.session, risultati: results, categoria: request.params.category})
+		}
+	});
+});
+
 // index.ejs
 app.get('/', function(request, response) {
 	connection.query('SELECT immagine FROM immagini WHERE profile_image = false', function(error, result, field) {
 		if (error) throw error;
-		const [prova] = result;
 		response.render("pages/index", {sessione: request.session, risultati: result})
 	});
 });
@@ -404,7 +413,13 @@ app.post('/searchUser', function(request, response) {
 			console.log(error);
 		// se non viene trovato un utente con quel nome
 		} else if (results.length < 1){
-			response.redirect("/");
+			request.session.message = {
+				type: "danger",
+				intro: "No users found with this username! ",
+				message: "please check your search"
+			}
+			// viene ricaricata la pagina corrente
+			response.redirect('back');
 		} else {
 			response.redirect("/user/"+results[0].username);
 		}
