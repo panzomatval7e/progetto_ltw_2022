@@ -12,6 +12,10 @@
 	transition-property: all;
 }
 
+.bck:hover{
+	color: grey;
+}
+
 .bck.bck-on {visibility: visible;}
 
 .fade_bck{opacity: 0;}
@@ -33,3 +37,4 @@
 .topToBottom {top: -50px;}
 
 .bck-on.topToBottom {top:1rem;}
+
