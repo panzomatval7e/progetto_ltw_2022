@@ -100,10 +100,10 @@ app.post('/auth', (request, response) => {
 // Registrazione (/signup)
 app.post('/signup', function(request, response){
 
-	const {username, mail, password} = request.body;
+	const {username, nome, mail, password} = request.body;
 
 	// Se i campi sono tutti settati
-	if (username && mail && password){
+	if (username && nome && mail && password){
 		// Se la mail inserita è in un formato valido
 		if (emailIsValid(mail)){
 			// Controllo se esiste un utente con lo stesso username
@@ -120,7 +120,7 @@ app.post('/signup', function(request, response){
 				// Se non esiste registro il nuovo utente
 				} else {
 					request.session.profile_image = 'default_1.jpg';
-					connection.query('INSERT INTO utenti SET ?', {username: username, mail: mail, password: password, immagine: "default_1.jpg"}, (error, results) => {
+					connection.query('INSERT INTO utenti SET ?', {username: username, nome: nome, mail: mail, password: password, immagine: "default_1.jpg"}, (error, results) => {
 						if(error) {
 							console.log(error);
 						} else {
@@ -200,19 +200,18 @@ app.get('/signup', function(request, response) {
 
 // profile.ejs
 app.get('/profile', function(request, response) {
-	connection.query('SELECT username, nome, cognome, immagine FROM utenti WHERE username = ?', [request.session.username], function(error, result, field) {
+	connection.query('SELECT username, nome, immagine FROM utenti WHERE username = ?', [request.session.username], function(error, result, field) {
 		if (error) throw error;
 		const [record] = result
 		console.log(result)
 		//gestire se non c'è
 		const username = record.username
 		const nome = record.nome
-		const cognome = record.cognome
 		const immagine_profilo = record.immagine
 		connection.query('SELECT immagine FROM immagini WHERE username = ? AND profile_image = false', [request.session.username], function(error, result, field) {
 			if (error) throw error;
 			const [prova] = result;
-			response.render("pages/profile", {username: username, nome: nome, cognome: cognome, immagine_profilo: immagine_profilo, sessione: request.session, risultati: result})
+			response.render("pages/profile", {username: username, nome: nome, immagine_profilo: immagine_profilo, sessione: request.session, risultati: result})
 		});
 	});
 });
@@ -237,7 +236,7 @@ app.get('/image/:tagId', function(request, response) {
 // user.ejs
 app.get('/user/:username', function(request, response) {
 	connection.query('SELECT immagine FROM immagini WHERE username = ? AND profile_image = false', [request.params.username], (error, results) => {
-		connection.query('SELECT mail, nome, cognome, immagine FROM utenti WHERE username = ?', [request.params.username], (error, results_1) => {
+		connection.query('SELECT mail, nome, immagine FROM utenti WHERE username = ?', [request.params.username], (error, results_1) => {
 			if (error){
 				console.log(error);
 			} else {
