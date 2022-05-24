@@ -16,6 +16,13 @@
   <!-- NAVBAR + BACK TO TOP-->
   <%- include('../partials/navbar', {sessione: sessione}); %>
 
+  <% if (message) { %>
+    <div style="text-align: center" class="alert alert-<%=message.type%>">
+        <button type="button" class="btn btn-close" data-bs-dismiss="alert"></button>
+        <strong><%= message.intro %></strong> <%= message.message %>
+    </div>
+  <% } %>
+
   <!-- PROFILE SECTION -->
   <div class="container pt-3">
     <div class="row align-items-center justify-content-between">
@@ -37,12 +44,6 @@
 
       <div class="col-md text-center">
         <div class="col-auto">
-          <% if (message) { %>
-            <div style="text-align: center" class="alert alert-<%=message.type%>">
-                <button type="button" class="btn btn-close" data-bs-dismiss="alert"></button>
-                <strong><%= message.intro %></strong> <%= message.message %>
-            </div>
-          <% } %>
           <!-- inserire link a pagina edit-->
           <button type="button" class="btn btn-black" data-bs-toggle="modal" data-bs-target="#edit">Edit profile</button>
             

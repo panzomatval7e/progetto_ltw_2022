@@ -61,8 +61,14 @@
           <li class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
           <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="/filter/sport">Motori</a></li>
+            <li><a class="dropdown-item" href="/filter/animal">Animal</a></li>
+            <li><a class="dropdown-item" href="/filter/b&w">B&W</a></li>
+            <li><a class="dropdown-item" href="/filter/food">Food</a></li>
             <li><a class="dropdown-item" href="/filter/landscape">Landscape</a></li>
+            <li><a class="dropdown-item" href="/filter/macro">Macro</a></li>
+            <li><a class="dropdown-item" href="/filter/portrait">Portrait</a></li>
+            <li><a class="dropdown-item" href="/filter/sport">Sport</a></li>
+            <li><a class="dropdown-item" href="/filter/street">Street</a></li>
           </ul>
           <li class="nav-item">
             <a href="/aboutus" class="nav-link">About us</a>
@@ -78,12 +84,5 @@
       </div>
     </div>
   </nav>
-
-  <% if (message) { %>
-    <div style="text-align: center" class="alert alert-<%=message.type%>">
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        <strong><%= message.intro %></strong> <%= message.message %>
-    </div>
-  <% } %>
 
   <a href="#" class="bck"></a>

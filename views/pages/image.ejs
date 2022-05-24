@@ -16,6 +16,13 @@
     <!-- NAVBAR + BACK TO TOP-->
     <%- include('../partials/navbar_image', {sessione: sessione}); %>
 
+    <% if (message) { %>
+        <div style="text-align: center" class="alert alert-<%=message.type%>">
+            <button type="button" class="btn btn-close" data-bs-dismiss="alert"></button>
+            <strong><%= message.intro %></strong> <%= message.message %>
+        </div>
+    <% } %>
+
     <!-- IMMAGINE E INFO-->
     <div class="container pt-3">
         <div class="row">
