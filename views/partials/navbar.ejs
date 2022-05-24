@@ -58,9 +58,12 @@
 
       <div class="navbar-collapse collapse" id="navmenu">
         <ul class="nav navbar-nav mr-auto">
-          <li class="nav-item">
-            <a href="#" class="nav-link">Categories</a>
-          </li>
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
+          <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="/filter/sport">Motori</a></li>
+            <li><a class="dropdown-item" href="/filter/landscape">Landscape</a></li>
+          </ul>
           <li class="nav-item">
             <a href="/aboutus" class="nav-link">About us</a>
           </li>
@@ -75,5 +78,12 @@
       </div>
     </div>
   </nav>
+
+  <% if (message) { %>
+    <div style="text-align: center" class="alert alert-<%=message.type%>">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <strong><%= message.intro %></strong> <%= message.message %>
+    </div>
+  <% } %>
 
   <a href="#" class="bck"></a>
