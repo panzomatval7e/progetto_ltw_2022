@@ -55,38 +55,30 @@ app.post('/auth', (request, response) => {
 	// Capture the input fields
 	let username = request.body.username;
 	let password = request.body.password;
-	// Ensure the input fields exists and are not empty
+	// Se username e passoword sono settati
 	if (username && password) {
-		connection.query('SELECT immagine FROM utenti WHERE username = ?', [username], function(error, results) {
-			if (error) {
-				console.log(error);
-			} else {
+		// Eseguo la query
+		connection.query('SELECT * FROM utenti WHERE username = ? AND password = ?', [username, password], (error, results) => {
+			if (error) console.log(error);
+			// Se la query produce risultati allora eseguo le operazioni
+			if (results.length > 0){
 				request.session.profile_image = results[0].immagine;
-				// Execute SQL query that'll select the account from the database based on the specified username and password
-				connection.query('SELECT * FROM utenti WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
-					// If there is an issue with the query, output the error
-					if (error) throw error;
-					// If the account exists
-					if (results.length > 0) {
-						// Authenticate the user
-						request.session.loggedin = true;
-						request.session.username = request.body.username;
-						// Redirect to home page
-						response.redirect('/');
-					} else {
-						request.session.message = {
-							type: 'danger',
-							intro: 'Wrong username or password! ',
-							message: 'Please check the informations.'
-						}
-						response.redirect('/login');
-					}			
-					response.end();
-				});
+				request.session.loggedin = true;
+				request.session.username = request.body.username;
+				response.redirect('/');
+			// Altrimenti messaggio di dati errati
+			} else {
+				request.session.message = {
+					type: 'danger',
+					intro: 'Wrong username or password! ',
+					message: 'Please check the informations.'
+				}
+				response.redirect('/login');
 			}
 
 		});
- 	} else {
+	// Altrimenti messaggio di campi non settati
+	} else {
 		request.session.message = {
 			type: 'danger',
 			intro: 'Empty fields! ',
@@ -94,7 +86,6 @@ app.post('/auth', (request, response) => {
 		}
 		response.redirect('/login');
 	}
-			
 });
 
 // Registrazione (/signup)
