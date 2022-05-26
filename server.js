@@ -189,22 +189,36 @@ app.get('/signup', function(request, response) {
 	response.render("pages/signup", {sessione: request.session});
 });
 
+// 404
+app.get('/error', function(request, response) {
+	response.render("pages/error", {sessione: request.session});
+})
+
 // profile.ejs
 app.get('/profile', function(request, response) {
-	connection.query('SELECT username, nome, immagine FROM utenti WHERE username = ?', [request.session.username], function(error, result, field) {
-		if (error) throw error;
-		const [record] = result
-		console.log(result)
-		//gestire se non c'è
-		const username = record.username
-		const nome = record.nome
-		const immagine_profilo = record.immagine
-		connection.query('SELECT immagine FROM immagini WHERE username = ? AND profile_image = false', [request.session.username], function(error, result, field) {
+	if (request.session.loggedin){
+		connection.query('SELECT username, nome, immagine FROM utenti WHERE username = ?', [request.session.username], function(error, result, field) {
 			if (error) throw error;
-			const [prova] = result;
-			response.render("pages/profile", {username: username, nome: nome, immagine_profilo: immagine_profilo, sessione: request.session, risultati: result})
+			const [record] = result
+			console.log(result)
+			//gestire se non c'è
+			const username = record.username
+			const nome = record.nome
+			const immagine_profilo = record.immagine
+			connection.query('SELECT immagine FROM immagini WHERE username = ? AND profile_image = false', [request.session.username], function(error, result, field) {
+				if (error) throw error;
+				const [prova] = result;
+				response.render("pages/profile", {username: username, nome: nome, immagine_profilo: immagine_profilo, sessione: request.session, risultati: result})
+			});
 		});
-	});
+	} else {
+		request.session.message = {
+			type: 'danger',
+			intro: 'You have to be logged in to visit this page! ',
+			message: ''
+		}
+		response.redirect('back');
+	}
 });
 
 // aboutus.ejs
@@ -214,7 +228,13 @@ app.get('/aboutus', function(request, response) {
 
 // upload.ejs
 app.get('/upload', function(request, response) {
-	response.render("pages/upload", {sessione: request.session});
+	if (request.session.loggedin) response.render("pages/upload", {sessione: request.session});
+	request.session.message = {
+		type: 'danger',
+		intro: 'You have to be logged in to visit this page! ',
+		message: ''
+	}
+	response.redirect('back')
 });
 
 // image.ejs
@@ -347,6 +367,7 @@ app.post('/change_username', function(request, response) {
 				if(error){
 					console.log(error);
 				} else {
+					// questa query è da togliere perchè con foreign key non serve più
 					connection.query('UPDATE immagini SET username = ? where immagini.username = ?', [request.body.newUsername, request.session.username], (error, results) => {
 						if(error){
 							console.log(error);
@@ -414,6 +435,11 @@ app.post('/searchUser', function(request, response) {
 			response.redirect("/user/"+results[0].username);
 		}
 	});
+});
+
+// error 404
+app.all('*', (req, res) => {
+	res.status(404).redirect('/error');
 });
 
 // Porta su cui ascolta il server
