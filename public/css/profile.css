@@ -35,10 +35,13 @@
     font-size: small;
     font-weight: 600;
     color: rgb(59, 59, 59);
-    padding-top: 0.1em;
     padding-left: 0.1em;
-    margin-top: 1.5em;
 } 
+
+.form-control:focus, .form-control:active {
+    border-color: rgb(233, 233, 233) ;
+    box-shadow: 0 0 0 0.2rem rgb(233, 233, 233);
+  }
 
 /* ---- BUTTONS STYLE ----*/
 
@@ -82,12 +85,7 @@
     text-align: center;
 }
 
-.btn:focus, .btn:active {
+.btn:focus, .btn:active, .btn-close:focus, .btn-close:active {
     outline: none;
     box-shadow: none;
 }
-
-.form-control:focus, .form-control:active {
-    border-color: rgb(233, 233, 233) !important;
-    box-shadow: 0 0 0 0.2rem rgb(233, 233, 233) !important;
-  }

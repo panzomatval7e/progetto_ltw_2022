@@ -5,7 +5,6 @@
 
     font-family: 'Plus Jakarta Sans', Serif;
   }
-  
 
   .dropdown-item:active, .dropdown-item:focus{
     background-color: rgb(233, 233, 233)  !important; 
@@ -19,6 +18,29 @@
     border-color: rgb(233, 233, 233) !important;
     box-shadow: 0 0 0 0.2rem rgb(233, 233, 233) !important;
   }
+
+  .input-group input, .input-group input:active, .input-group input:focus {
+    box-shadow: none !important;
+  }
+
+  .btn-search{
+    outline: none;
+    background-color:  rgb(190, 190, 190);
+    color: white;
+    margin: auto;
+    transition: all 0.5s;
+  }
+
+  .btn-search:hover{
+    background: white;
+    color: grey;
+    border: 1px solid;
+  }
+
+  .btn {
+    text-align: center !important;
+  }
+  
 </style>
 <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 sticky-top shadow">
     <div class="container">
@@ -39,7 +61,7 @@
             <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
               <img src="images/<%= sessione.profile_image %>" alt="mdo" width="32" height="32" class="rounded-circle">
             </a>
-            <ul class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left text-small" aria-labelledby="dropdownUser1">
+            <ul class="dropdown-menu dropdown-menu-end text-small" aria-labelledby="dropdownUser1">
               <li><a class="dropdown-item" href="/profile">Profile</a></li>
               <li><a class="dropdown-item" href="/upload">Upload photo</a></li>
               <li><hr class="dropdown-divider"></li>
@@ -77,8 +99,15 @@
         <ul class="navbar-nav ms-auto me-2">
           <li>
             <form action="/searchUser" method="POST">
-              <input name="user_search" type="search" class="form-control" placeholder="Search user" aria-label="Search user">
-            </form>
+              <div class="input-group">
+                <input name="user_search" type="search" class="form-control" placeholder="Search user" aria-label="Search user" aria-describedby="basic-addon1">
+                <button type="submit" class="btn btn-search">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search mb-1" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
+                  </svg>
+                </button>
+              </div>
+              </form>
           </li>
       </ul>
       </div>

@@ -27,7 +27,7 @@
   <div class="container pt-3">
     <div class="row align-items-center justify-content-between">
       <div class="col-md text-center">
-        <div class="profile-pic">
+        <div>
           <img src="images/<%= immagine_profilo %>" class="round-pic" loading="lazy">
         </div>
       </div>
@@ -72,7 +72,9 @@
             <label class="form_label">Repeat new password:</label>
               <input type="password" class="form-control" id="floatingNewPsw2" placeholder="Repeat new password" name="newPsw2">
             <label class="form_label">New profile image:</label>
-              <input type="file" class="form-control" id="floatingNewImage" name="image" placeholder="New profile image">
+              <input type="file" class="form-control" id="floatingNewImage" name="image" placeholder="New profile image" onchange="preview()">
+              <!-- img to crop -->
+              <img id="frame" class="round-pic">
           </form>
         </div>
         <div class="modal-footer">

@@ -24,19 +24,38 @@
     <% } %>
 
     <!-- IMMAGINE E INFO-->
-    <div class="container pt-3">
-        <div class="row">
-            <div class="col-lg-9">
-                <img src="../images/<%= tagID %>" class="img-fluid" loading="lazy">
-            </div>
-            <div class="col-lg">
-                <h3>Photographer: <a class="link_user" href="../user/<%= risultato[0].username %>"><%= risultato[0].username %></a></h3>
-                <h3>Camera: <%= risultato[0].camera %></h3>
-                <h3>Lens: <%= risultato[0].lente %></h3>
-                <h3>Focal length: <%= risultato[0].distanza %></h3>
-                <h3>ISO: <%= risultato[0].iso %></h3>             
-                <h3>F: <%= risultato[0].f %></h3>
-                <h3>Shutter speed: <%= risultato[0].shutter_speed %></h3>
+    <div class="container">
+        <div class="row m-3">
+            <img src="../images/<%= tagID %>" class="center img-fluid" loading="lazy">
+        </div>
+        <hr class="solid m-3">
+        <div class="row m-3">
+            <h3 class="campi">Photographer:
+                <a class="link_user" href="../user/<%= risultato[0].username %>"><%= risultato[0].username %></a>
+            </h3>
+            
+            <h3 class="campi">Camera: 
+                <span style="font-weight:100;"><%= risultato[0].camera %></span>
+            </h3>
+            <h3 class="campi">Lens:
+                <span style="font-weight:100;"><%= risultato[0].lente %></span>
+            </h3>
+            <h3 class="campi">Focal length:
+                <span style="font-weight:100;"><%= risultato[0].distanza %></span>
+            </h3>
+            <h3 class="campi">ISO:
+                <span style="font-weight:100;">
+                    <%= risultato[0].iso %>
+                </span> 
+            </h3>             
+            <h3 class="campi">F:
+                <span style="font-weight:100;">
+                    <%= risultato[0].f %>
+                </span> 
+            </h3>
+            <h3 class="campi">Shutter speed:
+                <span style="font-weight:100;"><%= risultato[0].shutter_speed %></span>
+            </h3>
             </div>
         </div>
     </div>
