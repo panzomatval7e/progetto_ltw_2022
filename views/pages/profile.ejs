@@ -9,6 +9,15 @@
     <link rel="stylesheet" type="text/css" href="/css/profile.css"/>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <%- include('../partials/back-to-top-script') %>
+    <script>
+      function preview(){
+        var div_preview = document.getElementById('preview-div');
+        if (div_preview.style.display == 'none'){
+          div_preview.style.display = 'block';
+        }
+        frame.src = URL.createObjectURL(event.target.files[0]);
+      }
+    </script>
     <title><%= username %> | Photo Community</title>
 </head>
 <body>
@@ -60,26 +69,48 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action="change_username" method="POST">
+          <form action="/change_name" method="POST" class="form-margin">
             <label class="form_label">New name:</label>
+            <div class="input-group">
               <input type="text" class="form-control" id="floatingNewName" placeholder="New name" name="newName">
-            <label class="form_label">New username:</label>
-              <input type="text" class="form-control" id="floatingNewUsername" placeholder="New username" name="newUsername">
-            <label class="form_label">Old password:</label>
-              <input type="password" class="form-control" id="floatingOldPsw" placeholder="Old password" name="oldPsw">
-            <label class="form_label">New password:</label>
-              <input type="password" class="form-control" id="floatingNewPsw1" placeholder="New password" name="newPsw1">
-            <label class="form_label">Repeat new password:</label>
-              <input type="password" class="form-control" id="floatingNewPsw2" placeholder="Repeat new password" name="newPsw2">
-            <label class="form_label">New profile image:</label>
-              <input type="file" class="form-control" id="floatingNewImage" name="image" placeholder="New profile image" onchange="preview()">
-              <!-- img to crop -->
-              <img id="frame" class="round-pic">
+              <button type="submit" class="btn btn-edit">Change</button>
+            </div>
+          <hr>
           </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-grey" data-bs-dismiss="modal">Dismiss</button>
-          <button type="submit" class="btn btn-black">Save</button>
+          <form action="/change_username" method="POST" class="form-margin">
+            <label class="form_label">New username:</label>
+            <div class="input-group">
+              <input type="text" class="form-control" id="floatingNewUsername" placeholder="New username" name="newUsername">
+              <button type="submit" class="btn btn-edit">Change</button>
+            </div>
+          </form>
+          <hr>
+          <form action="/psw_change" method="POST" class="form-margin">
+            <label class="form_label">Old password:</label>
+            <input type="password" class="form-control" id="floatingOldPsw" placeholder="Old password" name="oldPsw">
+            <label class="form_label">New password:</label>
+            <input type="password" class="form-control" id="floatingNewPsw1" placeholder="New password" name="newPsw1">
+            <label class="form_label">Repeat new password:</label>
+            <div class="input-group">
+              <input type="password" class="form-control" id="floatingNewPsw2" placeholder="Repeat new password" name="newPsw2">
+              <button type="submit" class="btn btn-edit">Change</button>
+            </div>
+          </form>
+          <hr>
+          <form action="/profile_img_change" method="POST" enctype="multipart/form-data" class="form-margin">
+            <label class="form_label">New profile image:</label>
+            <div class="input-group" style="padding-bottom: 1vh;">
+              <input type="file" class="form-control" id="floatingNewImage" name="image" placeholder="New profile image" onchange="preview()">
+              <button type="submit" class="btn btn-edit">Change</button>
+            </div>
+            <div class="text-center" style="display: none;" id="preview-div">
+              <img id="frame" class="round-pic-modal">
+            </div>
+          </form>
+          <hr>
+          <div class="row">
+            <button type="button" onclick="location.href='/delete_user'" class="btn btn-black">Delete account</button>
+          </div>
         </div>
       </div>
     </div>

@@ -41,7 +41,11 @@
 .form-control:focus, .form-control:active {
     border-color: rgb(233, 233, 233) ;
     box-shadow: 0 0 0 0.2rem rgb(233, 233, 233);
-  }
+}
+
+.form-margin{
+    margin-top: -1vh;
+}
 
 /* ---- BUTTONS STYLE ----*/
 
@@ -88,4 +92,26 @@
 .btn:focus, .btn:active, .btn-close:focus, .btn-close:active {
     outline: none;
     box-shadow: none;
+}
+
+.btn-edit{
+    outline: none;
+    background-color:  black;
+    color: white;
+    margin: auto;
+    transition: all 0.5s;
+}
+
+.btn-edit:hover{
+    background: white;
+    color: black;
+    border: 1px solid;
+    border-color: rgb(190, 190, 190);
+}
+
+.round-pic-modal{
+    border-radius: 100%;
+    min-width: 150px;
+    max-width: 200px;
+    height: auto;
 }

@@ -228,13 +228,16 @@ app.get('/aboutus', function(request, response) {
 
 // upload.ejs
 app.get('/upload', function(request, response) {
-	if (request.session.loggedin) response.render("pages/upload", {sessione: request.session});
-	request.session.message = {
-		type: 'danger',
-		intro: 'You have to be logged in to visit this page! ',
-		message: ''
+	if (request.session.loggedin) { 
+		response.render("pages/upload", {sessione: request.session});
+	} else {
+		request.session.message = {
+			type: 'danger',
+			intro: 'You have to be logged in to visit this page! ',
+			message: ''
+		}
+		response.redirect('back');
 	}
-	response.redirect('back')
 });
 
 // image.ejs
@@ -332,22 +335,6 @@ app.post('/change_name', function(request, response) {
 	});
 });
 
-// Cambia cognome
-app.post('/change_surname', function(request, response) {
-	connection.query('UPDATE utenti SET cognome = ? WHERE utenti.username = ?', [request.body.newSurname, request.session.username], (error, results) => {
-		if(error){
-			console.log(error);
-		} else {
-			request.session.message = {
-				type: "success",
-				intro: "Surname changed successfully! ",
-				message: ''
-			}
-			response.redirect('/profile');
-		}
-	});
-});
-
 // Cambia username
 app.post('/change_username', function(request, response) {
 	connection.query('SELECT * FROM utenti WHERE username = ?', [request.body.newUsername], (error, results) => {
@@ -364,24 +351,14 @@ app.post('/change_username', function(request, response) {
 		// se invece non esiste lo imposto
 		} else {
 			connection.query('UPDATE utenti SET username = ? WHERE utenti.username = ?', [request.body.newUsername, request.session.username], (error, results) => {
-				if(error){
-					console.log(error);
-				} else {
-					// questa query è da togliere perchè con foreign key non serve più
-					connection.query('UPDATE immagini SET username = ? where immagini.username = ?', [request.body.newUsername, request.session.username], (error, results) => {
-						if(error){
-							console.log(error);
-						} else {
-							request.session.username = request.body.newUsername;
-							request.session.message = {
-								type: "success",
-								intro: "Username changed successfully! ",
-								message: ''
-							}
-							response.redirect('/profile');
-						}
-					});
+				if(error) console.log(error);
+				request.session.username = request.body.newUsername;
+				request.session.message = {
+					type: "success",
+					intro: "Username changed successfully! ",
+					message: ''
 				}
+				response.redirect('/profile');
 			});
 		}
 	});
@@ -433,6 +410,22 @@ app.post('/searchUser', function(request, response) {
 			response.redirect('back');
 		} else {
 			response.redirect("/user/"+results[0].username);
+		}
+	});
+});
+
+app.get('/delete_user', function(request, response) {
+	connection.query('DELETE FROM utenti WHERE username = ?', [request.session.username], (error, results) => {
+		if (error) {
+			console.log(error);
+		} else {
+			request.session.loggedin = false;
+			request.session.message = {
+				type: "warning",
+				intro: "Account succesfully eliminated! ",
+				message: ""
+			}
+			response.redirect("/");
 		}
 	});
 });
