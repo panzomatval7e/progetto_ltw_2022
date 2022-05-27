@@ -10,6 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <%- include('../partials/back-to-top-script') %>
     <script>
+      // Funzione che attiva la visualizzazione in preview dell'immagine profilo nel modal
       function preview(){
         var div_preview = document.getElementById('preview-div');
         if (div_preview.style.display == 'none'){
@@ -17,6 +18,40 @@
         }
         frame.src = URL.createObjectURL(event.target.files[0]);
       }
+
+      // Funzione che attiva la visualizzazione dei pulsanti di conferma cancellazione account
+      function delete_confirm(){
+        var row_delete_button = document.getElementById('delete-button');
+        if (row_delete_button.style.display == 'block'){
+          row_delete_button.style.display = 'none';
+          var row_delete_confirm = document.getElementById('delete-confirm');
+          if (row_delete_confirm.style.display == 'none'){
+            row_delete_confirm.style.display = 'block';
+          }
+        }
+      }
+
+      // Funzione che reimposta la preview dell'immagine profile
+      function undo_preview(){
+        var div_preview = document.getElementById('preview-div');
+        if (div_preview.style.display == 'block'){
+          div_preview.style.display = 'none';
+        }
+        frame.src = "";
+      }
+
+      // Funzione che reimposta la conferma della cancellazione dell'account
+      function undo_delete_confirm(){
+        var row_delete_button = document.getElementById('delete-button');
+        if (row_delete_button.style.display == 'none'){
+          row_delete_button.style.display = 'block';
+          var row_delete_confirm = document.getElementById('delete-confirm');
+          if (row_delete_confirm.style.display == 'block'){
+            row_delete_confirm.style.display = 'none';
+          }
+        }
+      }
+
     </script>
     <title><%= username %> | Photo Community</title>
 </head>
@@ -61,14 +96,16 @@
     </div>
   </div>
   
+  <!-- MODAL EDIT PROFILE -->
   <div class="modal fade" id="edit" tabindex="-1" aria-labelledby="" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="">Edit profile</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="undo_delete_confirm(), undo_preview()"></button>
         </div>
         <div class="modal-body">
+          <!-- FORM NOME -->
           <form action="/change_name" method="POST" class="form-margin">
             <label class="form_label">New name:</label>
             <div class="input-group">
@@ -77,6 +114,7 @@
             </div>
           <hr>
           </form>
+          <!-- FORM USERNAME -->
           <form action="/change_username" method="POST" class="form-margin">
             <label class="form_label">New username:</label>
             <div class="input-group">
@@ -85,6 +123,7 @@
             </div>
           </form>
           <hr>
+          <!-- FORM PASSWORD -->
           <form action="/psw_change" method="POST" class="form-margin">
             <label class="form_label">Old password:</label>
             <input type="password" class="form-control" id="floatingOldPsw" placeholder="Old password" name="oldPsw">
@@ -97,6 +136,7 @@
             </div>
           </form>
           <hr>
+          <!--FORM IMMAGINE PROFILO-->
           <form action="/profile_img_change" method="POST" enctype="multipart/form-data" class="form-margin">
             <label class="form_label">New profile image:</label>
             <div class="input-group" style="padding-bottom: 1vh;">
@@ -108,8 +148,15 @@
             </div>
           </form>
           <hr>
-          <div class="row">
-            <button type="button" onclick="location.href='/delete_user'" class="btn btn-black">Delete account</button>
+          <!-- DELETE ACCOUNT BUTTON -->
+          <!-- devo fare in modo che una volta cliccato il bottone sparisca e faccia posto a un bottone di conferma -->
+          <div class="row" id="delete-button" style="display: block;">
+            <button type="button" onclick="delete_confirm()" class="btn btn-black">Delete account</button>
+          </div>
+          <div class="row" id="delete-confirm" style="display: none; justify-content: space-between;">
+            <h3>Are you sure?</h3>
+            <button type="button" onclick="location.href='/delete_user'" class="btn btn-black">Yes!</button>
+            <button type="button" onclick="undo_delete_confirm()" class="btn btn-black">No</button>
           </div>
         </div>
       </div>
