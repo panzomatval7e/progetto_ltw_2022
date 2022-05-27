@@ -151,12 +151,12 @@
           <!-- DELETE ACCOUNT BUTTON -->
           <!-- devo fare in modo che una volta cliccato il bottone sparisca e faccia posto a un bottone di conferma -->
           <div class="row" id="delete-button" style="display: block;">
-            <button type="button" onclick="delete_confirm()" class="btn btn-black">Delete account</button>
+            <button type="button" onclick="delete_confirm()" class="btn btn-red">Delete account</button>
           </div>
           <div class="row" id="delete-confirm" style="display: none; justify-content: space-between;">
             <h3>Are you sure?</h3>
-            <button type="button" onclick="location.href='/delete_user'" class="btn btn-black">Yes!</button>
-            <button type="button" onclick="undo_delete_confirm()" class="btn btn-black">No</button>
+            <button type="button" onclick="location.href='/delete_user'" class="btn btn-red">Yes!</button>
+            <button type="button" onclick="undo_delete_confirm()" class="btn btn-red">No</button>
           </div>
         </div>
       </div>
