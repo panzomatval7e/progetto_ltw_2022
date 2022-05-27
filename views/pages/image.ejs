@@ -25,38 +25,50 @@
 
     <!-- IMMAGINE E INFO-->
     <div class="container">
-        <div class="row m-3">
-            <img src="../images/<%= tagID %>" class="center img-fluid" loading="lazy">
-        </div>
-        <hr class="solid m-3">
-        <div class="row m-3">
-            <h3 class="campi">Photographer:
-                <a class="link_user" href="../user/<%= risultato[0].username %>"><%= risultato[0].username %></a>
-            </h3>
-            
-            <h3 class="campi">Camera: 
-                <span style="font-weight:100;"><%= risultato[0].camera %></span>
-            </h3>
-            <h3 class="campi">Lens:
-                <span style="font-weight:100;"><%= risultato[0].lente %></span>
-            </h3>
-            <h3 class="campi">Focal length:
-                <span style="font-weight:100;"><%= risultato[0].distanza %></span>
-            </h3>
-            <h3 class="campi">ISO:
-                <span style="font-weight:100;">
-                    <%= risultato[0].iso %>
-                </span> 
-            </h3>             
-            <h3 class="campi">F:
-                <span style="font-weight:100;">
-                    <%= risultato[0].f %>
-                </span> 
-            </h3>
-            <h3 class="campi">Shutter speed:
-                <span style="font-weight:100;"><%= risultato[0].shutter_speed %></span>
-            </h3>
+        <div class="row align-items-center">
+
+            <div class="col-md-8 center" id="image">
+                <img src="../images/<%= tagID %>" class="center_img img-fluid" loading="lazy">
+            </div>
+
+
+            <div class="col-md-4">  
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="field">Photographer:</h2></th>
+                            <th class="left"><a class="link_user" href="../user/<%= risultato[0].username %>"><%= risultato[0].username %></a></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row" class="field">Camera:</th>
+                            <td class="left"><%= risultato[0].camera %></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="field">Lens:</th>
+                            <td class="left"><%= risultato[0].lente %></td> 
+                        </tr>
+                        <tr>
+                            <th scope="row" class="field">Focal length:</th>
+                            <td class="left"><%= risultato[0].distanza %></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="field">ISO:</th>
+                            <td class="left"><%= risultato[0].iso %></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="field">F:</th>
+                            <td class="left"><%= risultato[0].f %></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="field">Shutter speed:</th>
+                            <td class="left"><%= risultato[0].shutter_speed %></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-    
+</body>
+</html>

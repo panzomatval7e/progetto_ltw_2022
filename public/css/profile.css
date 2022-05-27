@@ -99,6 +99,9 @@
     background-color:  black;
     color: white;
     margin: auto;
+    font-size: small;
+    font-weight: bold;
+    line-height: 1.5rem;
     transition: all 0.5s;
 }
 
@@ -109,6 +112,23 @@
     border-color: rgb(190, 190, 190);
 }
 
+.btn-red {
+    border: 1px solid;
+    outline: none;
+    background-color: rgba(253, 72, 17, 0.885);
+    color: white;
+    border-radius: 4px;
+    line-height: 1.5rem;
+    transition: all 0.5s;
+    font-size: small;
+    font-weight: bold;
+}
+
+.btn-red:hover {
+    background: white;
+    color: rgba(253, 72, 17, 0.885);
+    border: 1px solid;
+}
 .round-pic-modal{
     border-radius: 100%;
     min-width: 150px;

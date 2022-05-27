@@ -1,18 +1,37 @@
 .link_user {
     color: black;
-    font-weight: 100;
+    font-size: x-large;    
 }
 
 .link_user:hover {
     color: grey;
 }
 
-.center {
+.field {
+    font-variant: small-caps;
+    font-size: x-large;
+}
+
+.left {
+    text-align: end;
+    font-size: large;
+    vertical-align:middle;
+}
+
+/* ---- IMG DESIGN ---- */
+.center{
+    justify-content: center;
+    align-items: center;
+    height: 87vh;
+}
+
+#image{
+    object-fit: contain;
+    display: flex;
+}
+
+.center_img {
     object-fit: contain;
     width: 100%;
     max-height: 80vh;
-}
-
-.campi {
-    font-weight: bolder;
 }
