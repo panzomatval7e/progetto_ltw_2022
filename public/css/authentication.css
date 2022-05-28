@@ -52,7 +52,7 @@
     color: #fff;
 }
 
-.side-text h2{
+#side-text{
     font-weight: 400;
     font-Family: 'Roboto Condensed', Sans-Serif;
 }
@@ -72,15 +72,6 @@
     color: black;
     line-height: 2rem;
 }
-
-/* per label al posto delle icon
-.form-group label {
-    font-size: small;
-    font-weight: 600;
-    color: rgb(59, 59, 59);
-    padding-top: 0.1em;
-    padding-left: 0.1em;
-} */
 
 .form-group input, .form-group input:active, .form-group input:focus {
     background: none !important;
