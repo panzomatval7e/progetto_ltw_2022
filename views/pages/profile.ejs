@@ -37,7 +37,8 @@
         if (div_preview.style.display == 'block'){
           div_preview.style.display = 'none';
         }
-        frame.src = "";
+        var input_field = document.getElementById('floatingNewImage');
+        input_field.value = '';
       }
 
       // Funzione che reimposta la conferma della cancellazione dell'account
