@@ -88,10 +88,11 @@
       </div>
 
       <div class="col-md text-center">
-        <div class="col-auto">
-          <!-- inserire link a pagina edit-->
+        <div class="col-auto p-1">
           <button type="button" class="btn btn-black" data-bs-toggle="modal" data-bs-target="#edit">Edit profile</button>
-            
+        </div>
+        <div class="col-auto">
+          <button type="button" class="btn btn-red" data-bs-toggle="modal" data-bs-target="#delete">Delete profile</button>
         </div>
       </div>
     </div>
@@ -99,7 +100,7 @@
   
   <!-- MODAL EDIT PROFILE -->
   <div class="modal fade" id="edit" tabindex="-1" aria-labelledby="" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="">Edit profile</h5>
@@ -151,18 +152,31 @@
           <hr>
           <!-- DELETE ACCOUNT BUTTON -->
           <!-- devo fare in modo che una volta cliccato il bottone sparisca e faccia posto a un bottone di conferma -->
-          <div class="row" id="delete-button" style="display: block;">
-            <button type="button" onclick="delete_confirm()" class="btn btn-red">Delete account</button>
-          </div>
-          <div class="row" id="delete-confirm" style="display: none; justify-content: space-between;">
-            <h3>Are you sure?</h3>
-            <button type="button" onclick="location.href='/delete_user'" class="btn btn-red">Yes!</button>
-            <button type="button" onclick="undo_delete_confirm()" class="btn btn-red">No</button>
-          </div>
+          
         </div>
       </div>
     </div>
   </div>
+
+  <!-- MODAL DELETE PROFILE -->
+  <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" style="font-weight: bold;">Are you sure?</h5>
+        </div>
+        <div class="modal-body">
+           <p>Your profile and all your photos will be deleted from Photo Community.<br>This action cannot be undone.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button"data-bs-dismiss="modal" aria-label="Close" onclick="undo_delete_confirm()" class="btn btn-grey">No</button>
+          <button type="button" onclick="location.href='/delete_user'" class="btn btn-red">Yes</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
 
   <!-- UPLOADED FOTO SECTION -->
   <div class="container pt-3">
