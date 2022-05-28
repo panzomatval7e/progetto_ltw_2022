@@ -22,7 +22,18 @@
 .center{
     justify-content: center;
     align-items: center;
-    height: 87vh;
+}
+
+@media(min-width: 992px) {
+    .center{
+      height: 91vh;
+    }
+}
+
+@media(max-width: 992px){
+    .center{
+        padding-top: 2vh;
+    }
 }
 
 #image{
