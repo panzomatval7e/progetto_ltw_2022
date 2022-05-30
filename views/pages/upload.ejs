@@ -22,7 +22,8 @@
     <%- include('../partials/navbar', {sessione: sessione}); %>
 
     <div class="container">
-        <div class="row align-items-center">
+        <div class="row align-items-center padding-mobile">
+            <!-- UPLOAD FORM -->
             <div class="col-md-4">
                 <form action="/uploadImage" method="POST" enctype="multipart/form-data">
                     <% if (message) { %>
@@ -52,6 +53,7 @@
                     <button type="submit" class="btn btn-black mt-3 mb-3">Click to upload</button>
                 </form>
             </div>
+            <!-- PREVIEW IMAGE -->
             <div class="col-md-8 center" id="image">
                 <img id="frame" src="" class="center_img img-fluid">
             </div>

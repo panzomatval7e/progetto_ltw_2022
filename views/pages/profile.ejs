@@ -19,18 +19,6 @@
         frame.src = URL.createObjectURL(event.target.files[0]);
       }
 
-      // Funzione che attiva la visualizzazione dei pulsanti di conferma cancellazione account
-      function delete_confirm(){
-        var row_delete_button = document.getElementById('delete-button');
-        if (row_delete_button.style.display == 'block'){
-          row_delete_button.style.display = 'none';
-          var row_delete_confirm = document.getElementById('delete-confirm');
-          if (row_delete_confirm.style.display == 'none'){
-            row_delete_confirm.style.display = 'block';
-          }
-        }
-      }
-
       // Funzione che reimposta la preview dell'immagine profile
       function undo_preview(){
         var div_preview = document.getElementById('preview-div');
@@ -39,18 +27,6 @@
         }
         var input_field = document.getElementById('floatingNewImage');
         input_field.value = '';
-      }
-
-      // Funzione che reimposta la conferma della cancellazione dell'account
-      function undo_delete_confirm(){
-        var row_delete_button = document.getElementById('delete-button');
-        if (row_delete_button.style.display == 'none'){
-          row_delete_button.style.display = 'block';
-          var row_delete_confirm = document.getElementById('delete-confirm');
-          if (row_delete_confirm.style.display == 'block'){
-            row_delete_confirm.style.display = 'none';
-          }
-        }
       }
 
     </script>
@@ -104,7 +80,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="">Edit profile</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="undo_delete_confirm(), undo_preview()"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="undo_preview()"></button>
         </div>
         <div class="modal-body">
           <!-- FORM NOME -->
@@ -169,7 +145,7 @@
            <p>Your profile and all your photos will be deleted from Photo Community.<br>This action cannot be undone.</p>
         </div>
         <div class="modal-footer">
-          <button type="button"data-bs-dismiss="modal" aria-label="Close" onclick="undo_delete_confirm()" class="btn btn-grey">No</button>
+          <button type="button"data-bs-dismiss="modal" aria-label="Close" class="btn btn-grey">No</button>
           <button type="button" onclick="location.href='/delete_user'" class="btn btn-red">Yes</button>
         </div>
 

@@ -36,6 +36,12 @@
     }
 }
 
+@media(max-width: 992px){
+    .padding-mobile{
+        padding-top: 2vh;
+    }
+}
+
 #image{
     object-fit: contain;
     display: flex;
