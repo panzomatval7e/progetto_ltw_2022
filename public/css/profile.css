@@ -38,11 +38,14 @@
     padding-left: 0.1em;
 } 
 
-.form-control:focus, .form-control:active {
+.form-control:focus, .form-control:active, .form-select:focus, .form-select:active {
     border-color: rgb(233, 233, 233) ;
     box-shadow: 0 0 0 0.2rem rgb(233, 233, 233);
 }
 
+select.form-select option:checked, option:hover, option: {
+    box-shadow: 0 0 10px 100px #1882a8 inset;
+}
 .form-margin{
     margin-top: -1vh;
 }
