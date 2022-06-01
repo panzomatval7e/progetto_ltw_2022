@@ -32,14 +32,14 @@
                             <strong><%= message.intro %></strong> <%= message.message %>
                         </div>
                     <% } %>
-                    <input class="form-control" type="file" name="image" id="formFile" onchange="preview()">
-                    <input type="text" class="form-control mt-3" name="camera" placeholder="Camera">
-                    <input type="text" class="form-control mt-3" name="lens" placeholder="Lens">
-                    <input type="text" class="form-control mt-3" name="focal_length" placeholder="Focal length">
-                    <input type="text" class="form-control mt-3" name="ISO" placeholder="ISO">
-                    <input type="text" class="form-control mt-3" name="F" placeholder="F">
-                    <input type="text" class="form-control mt-3" name="shutter_speed" placeholder="Shutter speed">
-                    <select class="form-select mt-3" name="categoria">
+                    <input class="form-control" type="file" name="image" id="formFile" onchange="preview()" required>
+                    <input type="text" class="form-control mt-3" name="camera" placeholder="Camera" required>
+                    <input type="text" class="form-control mt-3" name="lens" placeholder="Lens" required>
+                    <input type="text" class="form-control mt-3" name="focal_length" placeholder="Focal length" required>
+                    <input type="text" class="form-control mt-3" name="ISO" placeholder="ISO" required>
+                    <input type="text" class="form-control mt-3" name="F" placeholder="F" required>
+                    <input type="text" class="form-control mt-3" name="shutter_speed" placeholder="Shutter speed" required>
+                    <select class="form-select mt-3" name="categoria" required>
                         <option selected>Categories</option>
                         <option value="portrait">Portrait</option>
                         <option value="landscape">Landscape</option>

@@ -17,6 +17,13 @@
   <!-- NAVBAR + BACK TO TOP-->
   <%- include('../partials/navbar', {sessione: sessione}); %>
 
+  <% if (message) { %>
+    <div style="text-align: center" class="alert alert-<%=message.type%>">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <strong><%= message.intro %></strong> <%= message.message %>
+    </div>
+  <% } %>
+
   <div class="container py-4">
 
     <div class="row">
