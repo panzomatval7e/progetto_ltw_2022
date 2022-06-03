@@ -1,2 +1,2 @@
-# progetto_ltw_2022
-Progetto LTW 2022 
+# Photo Community
+A platform to share your photographs with a community of photographers.
