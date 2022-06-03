@@ -4,9 +4,9 @@
 	
 	//Default options
 	var settings = $.extend({
-		iconName : 'fas fa-chevron-up',
+		iconName : 'fas fa-arrow-up',
 		trigger : 300,
-		fxName : 'fade_bck',
+		fxName : 'rightToLeft',
 		fxTransitionDuration : 300,
 		scrollDuration : 300
 	}, options );	
